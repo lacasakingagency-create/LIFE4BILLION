@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life4Billion</title>
+    <meta name="description" content="Life4Billion — AI, finance, productivity, and personal growth for billions of lives." />
+    
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="zLbj58Vw1y6HM4NpFyLjnTZBuCQo-eNf7wjGRAkUNCk" />
+    
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Life4Billion" />
+    <meta property="og:description" content="Life4Billion — AI, finance, productivity, and personal growth for billions of lives." />
+    <meta property="og:type" content="website" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Life4Billion" />
+    <meta name="twitter:description" content="Life4Billion — AI, finance, productivity, and personal growth for billions of lives." />
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Safe Window.fetch setter patch to prevent Uncaught TypeError: Cannot set property fetch of #<Window> which has only a getter -->
+    <script>
+      (function() {
+        try {
+          var win = typeof window !== 'undefined' ? window : globalThis;
+          var proto = Object.getPrototypeOf(win) || win;
+          var desc = Object.getOwnPropertyDescriptor(proto, 'fetch') || Object.getOwnPropertyDescriptor(win, 'fetch');
+          if (desc && desc.get && !desc.set) {
+            var currentFetch = desc.get.call(win);
+            Object.defineProperty(win, 'fetch', {
+              get: function() { return currentFetch; },
+              set: function(fn) { currentFetch = fn; },
+              configurable: true,
+              enumerable: true
+            });
+          }
+        } catch (e) {
+          // Ignore
+        }
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,366 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Sophisticated Dark Palette Map overrides */
+  --color-slate-950: #0A0A0B;
+  --color-slate-900: #111112;
+  --color-slate-850: rgba(255, 255, 255, 0.05);
+  --color-slate-800: rgba(255, 255, 255, 0.05);
+  --color-slate-750: rgba(255, 255, 255, 0.08);
+  --color-slate-700: rgba(255, 255, 255, 0.1);
+  --color-slate-650: rgba(255, 255, 255, 0.15);
+  --color-slate-600: rgba(255, 255, 255, 0.2);
+  --color-slate-500: #6B7280;
+  --color-slate-400: #9CA3AF;
+  --color-slate-300: #D1D5DB;
+  --color-slate-100: #F3F4F6;
+
+  /* Swap Indigo accents to Emerald for a gorgeous, green Sophisticated Dark feel */
+  --color-indigo-950: rgba(16, 185, 129, 0.05);
+  --color-indigo-900: rgba(16, 185, 129, 0.1);
+  --color-indigo-850: rgba(16, 185, 129, 0.15);
+  --color-indigo-800: rgba(16, 185, 129, 0.2);
+  --color-indigo-700: #059669; /* emerald-600 */
+  --color-indigo-600: #10B981; /* emerald-500 */
+  --color-indigo-550: #10B981;
+  --color-indigo-500: #34D399; /* emerald-400 */
+  --color-indigo-450: #34D399;
+  --color-indigo-400: #34D399; /* emerald-400 */
+  --color-indigo-300: #6EE7B7; /* emerald-300 */
+}
+
+/* Theme Accent Colors (Dynamic CSS Variables Overrides) */
+:root[data-accent="blue"] {
+  --color-indigo-950: rgba(59, 130, 246, 0.05);
+  --color-indigo-900: rgba(59, 130, 246, 0.1);
+  --color-indigo-850: rgba(59, 130, 246, 0.15);
+  --color-indigo-800: rgba(59, 130, 246, 0.2);
+  --color-indigo-700: #1D4ED8;
+  --color-indigo-600: #2563EB;
+  --color-indigo-550: #2563EB;
+  --color-indigo-500: #3B82F6;
+  --color-indigo-450: #3B82F6;
+  --color-indigo-400: #60A5FA;
+  --color-indigo-300: #93C5FD;
+
+  --color-emerald-950: rgba(59, 130, 246, 0.05);
+  --color-emerald-900: rgba(59, 130, 246, 0.1);
+  --color-emerald-800: rgba(59, 130, 246, 0.2);
+  --color-emerald-700: #1D4ED8;
+  --color-emerald-600: #2563EB;
+  --color-emerald-500: #3B82F6;
+  --color-emerald-400: #60A5FA;
+  --color-emerald-300: #93C5FD;
+}
+
+:root[data-accent="emerald"] {
+  --color-indigo-950: rgba(16, 185, 129, 0.05);
+  --color-indigo-900: rgba(16, 185, 129, 0.1);
+  --color-indigo-850: rgba(16, 185, 129, 0.15);
+  --color-indigo-800: rgba(16, 185, 129, 0.2);
+  --color-indigo-700: #047857;
+  --color-indigo-600: #059669;
+  --color-indigo-550: #059669;
+  --color-indigo-500: #10B981;
+  --color-indigo-450: #10B981;
+  --color-indigo-400: #34D399;
+  --color-indigo-300: #6EE7B7;
+
+  --color-emerald-950: rgba(16, 185, 129, 0.05);
+  --color-emerald-900: rgba(16, 185, 129, 0.1);
+  --color-emerald-800: rgba(16, 185, 129, 0.2);
+  --color-emerald-700: #047857;
+  --color-emerald-600: #059669;
+  --color-emerald-500: #10B981;
+  --color-emerald-400: #34D399;
+  --color-emerald-300: #6EE7B7;
+}
+
+:root[data-accent="rose"] {
+  --color-indigo-950: rgba(244, 63, 94, 0.05);
+  --color-indigo-900: rgba(244, 63, 94, 0.1);
+  --color-indigo-850: rgba(244, 63, 94, 0.15);
+  --color-indigo-800: rgba(244, 63, 94, 0.2);
+  --color-indigo-700: #BE123C;
+  --color-indigo-600: #E11D48;
+  --color-indigo-550: #E11D48;
+  --color-indigo-500: #F43F5E;
+  --color-indigo-450: #F43F5E;
+  --color-indigo-400: #FB7185;
+  --color-indigo-300: #FDA4AF;
+
+  --color-emerald-950: rgba(244, 63, 94, 0.05);
+  --color-emerald-900: rgba(244, 63, 94, 0.1);
+  --color-emerald-800: rgba(244, 63, 94, 0.2);
+  --color-emerald-700: #BE123C;
+  --color-emerald-600: #E11D48;
+  --color-emerald-500: #F43F5E;
+  --color-emerald-400: #FB7185;
+  --color-emerald-300: #FDA4AF;
+}
+
+:root[data-accent="purple"] {
+  --color-indigo-950: rgba(168, 85, 247, 0.05);
+  --color-indigo-900: rgba(168, 85, 247, 0.1);
+  --color-indigo-850: rgba(168, 85, 247, 0.15);
+  --color-indigo-800: rgba(168, 85, 247, 0.2);
+  --color-indigo-700: #7E22CE;
+  --color-indigo-600: #9333EA;
+  --color-indigo-550: #9333EA;
+  --color-indigo-500: #A855F7;
+  --color-indigo-450: #A855F7;
+  --color-indigo-400: #C084FC;
+  --color-indigo-300: #D8B4FE;
+
+  --color-emerald-950: rgba(168, 85, 247, 0.05);
+  --color-emerald-900: rgba(168, 85, 247, 0.1);
+  --color-emerald-800: rgba(168, 85, 247, 0.2);
+  --color-emerald-700: #7E22CE;
+  --color-emerald-600: #9333EA;
+  --color-emerald-500: #A855F7;
+  --color-emerald-400: #C084FC;
+  --color-emerald-300: #D8B4FE;
+}
+
+:root[data-accent="orange"] {
+  --color-indigo-950: rgba(249, 115, 22, 0.05);
+  --color-indigo-900: rgba(249, 115, 22, 0.1);
+  --color-indigo-850: rgba(249, 115, 22, 0.15);
+  --color-indigo-800: rgba(249, 115, 22, 0.2);
+  --color-indigo-700: #C2410C;
+  --color-indigo-600: #EA580C;
+  --color-indigo-550: #EA580C;
+  --color-indigo-500: #F97316;
+  --color-indigo-450: #F97316;
+  --color-indigo-400: #FB923C;
+  --color-indigo-300: #FDBA74;
+
+  --color-emerald-950: rgba(249, 115, 22, 0.05);
+  --color-emerald-900: rgba(249, 115, 22, 0.1);
+  --color-emerald-800: rgba(249, 115, 22, 0.2);
+  --color-emerald-700: #C2410C;
+  --color-emerald-600: #EA580C;
+  --color-emerald-500: #F97316;
+  --color-emerald-400: #FB923C;
+  --color-emerald-300: #FDBA74;
+}
+
+/* Ensure that Category Dashboard maintains its precise default colors and is NOT affected by the chosen dynamic accent */
+[id^="category-dashboard"], .category-budget-panel {
+  --color-indigo-950: rgba(16, 185, 129, 0.05) !important;
+  --color-indigo-900: rgba(16, 185, 129, 0.1) !important;
+  --color-indigo-850: rgba(16, 185, 129, 0.15) !important;
+  --color-indigo-800: rgba(16, 185, 129, 0.2) !important;
+  --color-indigo-700: #059669 !important;
+  --color-indigo-600: #10B981 !important;
+  --color-indigo-550: #10B981 !important;
+  --color-indigo-500: #34D399 !important;
+  --color-indigo-450: #34D399 !important;
+  --color-indigo-400: #34D399 !important;
+  --color-indigo-300: #6EE7B7 !important;
+
+  --color-emerald-950: rgba(16, 185, 129, 0.05) !important;
+  --color-emerald-900: rgba(16, 185, 129, 0.1) !important;
+  --color-emerald-800: rgba(16, 185, 129, 0.2) !important;
+  --color-emerald-700: #047857 !important;
+  --color-emerald-600: #059669 !important;
+  --color-emerald-500: #10B981 !important;
+  --color-emerald-400: #34D399 !important;
+  --color-emerald-300: #6EE7B7 !important;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-slate-950);
+  color: var(--color-slate-300);
+}
+
+:root.light-theme, .light-theme {
+  --color-slate-950: #F3F4F6; /* soft light gray app background */
+  --color-slate-900: #FFFFFF; /* clean white cards/sidebars */
+  --color-slate-850: rgba(0, 0, 0, 0.03);
+  --color-slate-800: rgba(0, 0, 0, 0.06);
+  --color-slate-750: rgba(0, 0, 0, 0.09);
+  --color-slate-700: rgba(0, 0, 0, 0.12);
+  --color-slate-650: rgba(0, 0, 0, 0.18);
+  --color-slate-600: rgba(0, 0, 0, 0.25);
+  --color-slate-500: #6B7280;
+  --color-slate-400: #4B5563; /* elegant dark gray for body text */
+  --color-slate-300: #1F2937; /* deep charcoal for bold/headings */
+  --color-slate-100: #111827; /* near black for premium accentuation */
+
+  background-color: #F3F4F6;
+  color: #1F2937;
+}
+
+/* High contrast text overrides for light theme */
+.light-theme .text-white {
+  color: #111827 !important;
+}
+.light-theme .text-slate-50 {
+  color: #111827 !important;
+}
+.light-theme .text-slate-100 {
+  color: #111827 !important;
+}
+.light-theme .text-slate-200 {
+  color: #1F2937 !important;
+}
+.light-theme .text-slate-300 {
+  color: #374151 !important;
+}
+.light-theme .text-slate-400 {
+  color: #4B5563 !important;
+}
+.light-theme .text-slate-500 {
+  color: #6B7280 !important;
+}
+
+/* Preserve white text for active elements, buttons, and badges in light mode */
+.light-theme button.bg-emerald-500,
+.light-theme button.bg-indigo-600,
+.light-theme button.bg-indigo-500,
+.light-theme button.bg-rose-600,
+.light-theme button.bg-rose-650,
+.light-theme button.bg-amber-500,
+.light-theme button.bg-red-600,
+.light-theme button.bg-indigo-700,
+.light-theme .bg-emerald-500,
+.light-theme .bg-emerald-600,
+.light-theme .bg-indigo-600,
+.light-theme .bg-indigo-500,
+.light-theme .bg-rose-600,
+.light-theme .bg-rose-650,
+.light-theme .bg-amber-500,
+.light-theme .bg-red-600,
+.light-theme .bg-indigo-700,
+.light-theme .text-white-forced {
+  color: #ffffff !important;
+}
+
+.light-theme button.bg-emerald-500 *,
+.light-theme button.bg-indigo-600 *,
+.light-theme button.bg-indigo-500 *,
+.light-theme button.bg-rose-600 *,
+.light-theme button.bg-rose-650 *,
+.light-theme button.bg-amber-500 *,
+.light-theme button.bg-red-600 *,
+.light-theme button.bg-indigo-700 * {
+  color: #ffffff !important;
+}
+
+/* Adjust borders from low-opacity white to low-opacity dark in light mode */
+.light-theme .border-white\/5,
+.light-theme .border-white\/10,
+.light-theme .border-slate-800,
+.light-theme .border-slate-850 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Adjust dark translucent backgrounds to light translucent in light mode */
+.light-theme .bg-black\/20,
+.light-theme .bg-black\/30,
+.light-theme .bg-black\/40,
+.light-theme .bg-black\/50,
+.light-theme .bg-slate-950\/40,
+.light-theme .bg-slate-950\/50,
+.light-theme .bg-slate-900\/50 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+.light-theme .bg-slate-900\/95,
+.light-theme .bg-slate-950\/95 {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+}
+
+/* Custom scrollbars for high-fidelity dashboards */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 11, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.15); /* Emerald low opacity */
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.35); /* Emerald hover */
+}
+
+/* Smooth fade-in transition */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Elegant Print layout stylesheet overrides */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #paycheck-ledger-sheet, #paycheck-ledger-sheet * {
+    visibility: visible !important;
+    color: #000000 !important;
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+  }
+  #paycheck-ledger-sheet {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  /* Hide interactive control elements when printing */
+  .no-print, .no-print * {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+/* Mobile Responsiveness Improvements & Text Wrapping */
+.break-word-safe {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.number-auto-shrink {
+  font-size: clamp(0.75rem, 4vw, 1.25rem) !important;
+  line-height: 1.2 !important;
+}
+
+.number-lg-auto-shrink {
+  font-size: clamp(1.1rem, 6vw, 2.25rem) !important;
+  line-height: 1.1 !important;
+}
+
+/* Force elements with long values or identifiers to wrap */
+.text-responsive-sm {
+  font-size: clamp(0.65rem, 3vw, 0.875rem) !important;
+}
+
+/* Touch-friendly min-sizes */
+button, a, select, input {
+  min-height: 44px;
+}
+
+/* Exclude tiny switches or top bar buttons that are small but padded */
+button.p-1, button.p-1.5, button.p-2, .no-min-touch {
+  min-height: auto;
+}
+

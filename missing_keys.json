@@ -1,0 +1,2177 @@
+[
+  {
+    "key": "supabaseStatusInitializing",
+    "fallback": "Inicializando...",
+    "file": "App.tsx"
+  },
+  {
+    "key": "favorites",
+    "fallback": "Favoritos",
+    "file": "CalculatorsView.tsx"
+  },
+  {
+    "key": "calcRemovedFav",
+    "fallback": "Calculadora removida dos favoritos.",
+    "file": "CalculatorsView.tsx"
+  },
+  {
+    "key": "calcAddedFav",
+    "fallback": "Calculadora adicionada aos favoritos!",
+    "file": "CalculatorsView.tsx"
+  },
+  {
+    "key": "calculatorsCenterTitle",
+    "fallback": "Central de Calculadoras Financeiras & Operacionais",
+    "file": "CalculatorsView.tsx"
+  },
+  {
+    "key": "searchCalculators",
+    "fallback": "Buscar calculadora por nome...",
+    "file": "CalculatorsView.tsx"
+  },
+  {
+    "key": "favCalculators",
+    "fallback": "Suas Calculadoras Favoritas",
+    "file": "CalculatorsView.tsx"
+  },
+  {
+    "key": "Dívidas Listadas: Dívida 1 (Cartão - R$ 5k), Dívida 2 (Carro - R$ 15k). Quitação recomendada: quite o Cartão de R$ 5.000 primeiro para ganho psicológico rápido e empilhe aportes.",
+    "fallback": "Dívidas Listadas: Dívida 1 (Cartão - R$ 5k), Dívida 2 (Carro - R$ 15k). Quitação recomendada: quite o Cartão de R$ 5.000 primeiro para ganho psicológico rápido e empilhe aportes.",
+    "file": "CalculatorsView.tsx"
+  },
+  {
+    "key": "Dívidas Ordenadas por Taxa: Dívida 1 (Rotativo Cartão - 14.5% a.m.), Dívida 2 (Consórcio - 1.2% a.m.). Quitação recomendada: pague agressivamente o Rotativo do Cartão por possuir maior taxa de juros.",
+    "fallback": "Dívidas Ordenadas por Taxa: Dívida 1 (Rotativo Cartão - 14.5% a.m.), Dívida 2 (Consórcio - 1.2% a.m.). Quitação recomendada: pague agressivamente o Rotativo do Cartão por possuir maior taxa de juros.",
+    "file": "CalculatorsView.tsx"
+  },
+  {
+    "key": "Cálculo pronto para processamento.",
+    "fallback": "Cálculo pronto para processamento.",
+    "file": "CalculatorsView.tsx"
+  },
+  {
+    "key": "totalCreditLimit",
+    "fallback": "Limite Total",
+    "file": "CardManagementView.tsx"
+  },
+  {
+    "key": "totalStatements",
+    "fallback": "Faturas Atuais",
+    "file": "CardManagementView.tsx"
+  },
+  {
+    "key": "addCard",
+    "fallback": "Adicionar Novo Cartão",
+    "file": "CardManagementView.tsx"
+  },
+  {
+    "key": "tabEmployeesSalaries",
+    "fallback": "Funcionários & Salários",
+    "file": "CompanyPayrollView.tsx"
+  },
+  {
+    "key": "payroll",
+    "fallback": "Folha de Pagamento",
+    "file": "CompanyPayrollView.tsx"
+  },
+  {
+    "key": "tabHRSpreadsheets",
+    "fallback": "Planilhas Universais de RH",
+    "file": "CompanyPayrollView.tsx"
+  },
+  {
+    "key": "tabCompanyProfile",
+    "fallback": "Perfil ERP Corporativo",
+    "file": "CompanyPayrollView.tsx"
+  },
+  {
+    "key": "payrollTitle",
+    "fallback": "Folha de Pagamento & Holerites (Estilo Excel)",
+    "file": "CompanyPayrollView.tsx"
+  },
+  {
+    "key": "payrollDesc",
+    "fallback": "Visualização analítica consolidada de pagamentos corporativos e encargos tributários.",
+    "file": "CompanyPayrollView.tsx"
+  },
+  {
+    "key": "excel",
+    "fallback": "Folha de Pagamento",
+    "file": "CompanyPayrollView.tsx"
+  },
+  {
+    "key": "pdf",
+    "fallback": "Folha de Pagamento",
+    "file": "CompanyPayrollView.tsx"
+  },
+  {
+    "key": "docs",
+    "fallback": "Folha de Pagamento",
+    "file": "CompanyPayrollView.tsx"
+  },
+  {
+    "key": "crmErrNameRequired",
+    "fallback": "O nome do produto é obrigatório.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmErrSkuRequired",
+    "fallback": "Informe um código SKU exclusivo.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmErrPricePositive",
+    "fallback": "O preço de venda deve ser maior que zero.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmErrCostPositive",
+    "fallback": "O custo operacional deve ser maior ou igual a zero.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmNoDescription",
+    "fallback": "Sem descrição.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmProductCataloged",
+    "fallback": "Produto Catalogado",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmProductCatalogedDesc",
+    "fallback": "adicionado ao inventário com 100 unidades padrão.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmErrCustNameRequired",
+    "fallback": "Por favor, informe o nome do cliente.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmErrEmailInvalid",
+    "fallback": "Informe um e-mail de contato válido.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmNotRegistered",
+    "fallback": "Não cadastrado",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmNew",
+    "fallback": "Novo",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCustomerRegistered",
+    "fallback": "Cliente Registrado",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCustomerRegisteredDesc",
+    "fallback": "adicionado com sucesso ao CRM.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmErrSelectProduct",
+    "fallback": "Selecione um produto.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmErrSelectCustomer",
+    "fallback": "Selecione um cliente para vincular a venda.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmErrMinQuantity",
+    "fallback": "A quantidade vendida deve ser no mínimo 1.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmErrInsufficientStock",
+    "fallback": "Quantidade insuficiente em estoque. Disponível:",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmUnits",
+    "fallback": "unidades",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSaleRecorded",
+    "fallback": "Venda Registrada! 🛒",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSaleRecordedDesc",
+    "fallback": "Pedido gerado com sucesso. Valor total:",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmProductDeleted",
+    "fallback": "Produto Excluído",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmProductDeletedDesc",
+    "fallback": "removido do catálogo.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCustomerRemoved",
+    "fallback": "Cliente Removido",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCustomerRemovedDesc",
+    "fallback": "removido do CRM.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmPosSalesTab",
+    "fallback": "Ponto de Vendas (PDV) & Pedidos",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmAddProduct",
+    "fallback": "Adicionar Produto ao Catálogo",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmProductName",
+    "fallback": "Nome do Produto / Serviço",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmProductPlaceholder",
+    "fallback": "Ex: Licença Mensal Pro",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSkuCode",
+    "fallback": "Código SKU",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSalePrice",
+    "fallback": "Preço de Venda",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmOperatingCost",
+    "fallback": "Custo de Operação / Aquisição",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmDescription",
+    "fallback": "Descrição",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmDescPlaceholder",
+    "fallback": "Escreva especificações técnicas ou comerciais do produto...",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmRegisterProduct",
+    "fallback": "Cadastrar Produto",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmProductCatalogTitle",
+    "fallback": "Catálogo de Produtos & Controle Físico de Estoque",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmPrice",
+    "fallback": "Preço",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmStock",
+    "fallback": "Estoque",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmInfinite",
+    "fallback": "Infinito",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmNoProducts",
+    "fallback": "Nenhum produto catalogado.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmAddCustomer",
+    "fallback": "Cadastrar Cliente CRM",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmFullName",
+    "fallback": "Nome Completo",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmEmail",
+    "fallback": "E-mail de Contato",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmPhone",
+    "fallback": "Telefone / WhatsApp",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmTags",
+    "fallback": "Tags de Segmentação (separadas por vírgula)",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSaveCustomer",
+    "fallback": "Salvar Cliente CRM",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCustomerPortfolio",
+    "fallback": "Portfólio de Clientes Ativos (CRM)",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmRemoveCustomer",
+    "fallback": "Remover cliente",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmNoCustomers",
+    "fallback": "Nenhum cliente registrado no CRM.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmNewOrder",
+    "fallback": "Ponto de Vendas PDV (Novo Pedido)",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSelectClient",
+    "fallback": "Selecionar Cliente CRM",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSelectClientOption",
+    "fallback": "Selecione o Cliente",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSelectProduct",
+    "fallback": "Selecionar Produto / Serviço",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSelectProductOption",
+    "fallback": "Selecione o Produto",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmQuantity",
+    "fallback": "Quantidade",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmGenerateSale",
+    "fallback": "Gerar Venda & Emitir Recibo",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSalesHistory",
+    "fallback": "Registro Histórico de Pedidos ERP",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCompleted",
+    "fallback": "CONCLUÍDO",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCustomService",
+    "fallback": "Serviço Personalizado",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCustomerLabel",
+    "fallback": "Cliente:",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmFinalConsumer",
+    "fallback": "Venda Consumidor Final",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmQuantityLabel",
+    "fallback": "Quantidade:",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmReceipt",
+    "fallback": "Recibo",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmNoSales",
+    "fallback": "Nenhum pedido faturado.",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCorporateReceipt",
+    "fallback": "Recibo de Venda Corporativa",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmBillingCompleted",
+    "fallback": "Faturamento Concluído",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmOrderLabel",
+    "fallback": "Pedido",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmBilledOn",
+    "fallback": "Faturado em",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmClientAcquirer",
+    "fallback": "Cliente Adquirente",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmConsumidorGeral",
+    "fallback": "Consumidor Geral",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmProductSkuLabel",
+    "fallback": "Produto / SKU",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmQtyLabel",
+    "fallback": "Qtd",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmSubtotalLabel",
+    "fallback": "Subtotal",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmTaxEstimate",
+    "fallback": "Impostos Incidentes (NFS-e de Serviços)",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmTaxIncluded",
+    "fallback": "Incluso",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmTotalSettled",
+    "fallback": "TOTAL LIQUIDADO",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "crmCloseBtn",
+    "fallback": "Concluir e Fechar",
+    "file": "CrmSalesView.tsx"
+  },
+  {
+    "key": "chooseDateLabel",
+    "fallback": "Escolher Data",
+    "file": "DailyPlannerView.tsx"
+  },
+  {
+    "key": "dailyCategoriesHeading",
+    "fallback": "20 Categorias Diárias",
+    "file": "DailyPlannerView.tsx"
+  },
+  {
+    "key": "prefillSampleBtn",
+    "fallback": "Preencher Amostra",
+    "file": "DailyPlannerView.tsx"
+  },
+  {
+    "key": "printDailySheetBtn",
+    "fallback": "Imprimir Folha Diária",
+    "file": "DailyPlannerView.tsx"
+  },
+  {
+    "key": "clearDayRecordBtn",
+    "fallback": "Limpar Registro do Dia",
+    "file": "DailyPlannerView.tsx"
+  },
+  {
+    "key": "sectionLabel",
+    "fallback": "Seção",
+    "file": "DailyPlannerView.tsx"
+  },
+  {
+    "key": "ofLabel",
+    "fallback": "de",
+    "file": "DailyPlannerView.tsx"
+  },
+  {
+    "key": "recordOfLabel",
+    "fallback": "Registro de",
+    "file": "DailyPlannerView.tsx"
+  },
+  {
+    "key": "habitUpdated",
+    "fallback": "Habit Updated",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "wallpaperAutoUpdated",
+    "fallback": "Wallpaper data updated automatically!",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "canvas",
+    "fallback": "canvas",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "2d",
+    "fallback": "2d",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "L I F E 4 B I L L I O N",
+    "fallback": "L I F E 4 B I L L I O N",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "NET WORTH",
+    "fallback": "NET WORTH",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "BALANCE",
+    "fallback": "BALANCE",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "INCOME",
+    "fallback": "INCOME",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "SPENDING",
+    "fallback": "SPENDING",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "L I F E 4 B I L L I O N  •  S M A R T  W A L L P A P E R",
+    "fallback": "L I F E 4 B I L L I O N  •  S M A R T  W A L L P A P E R",
+    "file": "DashboardWallpaperModal.tsx"
+  },
+  {
+    "key": "familyAvatarTooLarge",
+    "fallback": "Avatar muito grande",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyAvatarExceedsLimit",
+    "fallback": "O avatar excede o limite de 2MB.",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyFileTooLarge",
+    "fallback": "Arquivo muito grande",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyFileExceedsLimit",
+    "fallback": "O arquivo ",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyProvideName",
+    "fallback": "Por favor, informe o nome do membro da família.",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyProvideBirthDate",
+    "fallback": "Por favor, informe a data de nascimento.",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyNoNotes",
+    "fallback": "Sem observações.",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyProfileSaved",
+    "fallback": "Perfil de Família Salvo",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyMemberRegisteredSuccess",
+    "fallback": "Membro ",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyProfileRemoved",
+    "fallback": "Perfil Removido",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyProfileRemovedDesc",
+    "fallback": "O registro de ",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyMonth",
+    "fallback": "mês",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyMonths",
+    "fallback": "meses",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyYear",
+    "fallback": "ano",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyYears",
+    "fallback": "anos",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familySpouseLabel",
+    "fallback": "Cônjuge / Parceiro(a)",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyChildLabel",
+    "fallback": "Filho(a)",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyParentLabel",
+    "fallback": "Pai / Mãe",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familySiblingLabel",
+    "fallback": "Irmão / Irmã",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyOtherLabel",
+    "fallback": "Outros",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyAddMemberTitle",
+    "fallback": "Cadastrar Membro Familiar",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyAddMemberDesc",
+    "fallback": "Gerencie os perfis de quem você ama e compartilha responsabilidades.",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyFullName",
+    "fallback": "Nome Completo",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyRelationship",
+    "fallback": "Parentesco",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familySpouseOpt",
+    "fallback": "Cônjuge",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyChildOpt",
+    "fallback": "Filho(a)",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyParentOpt",
+    "fallback": "Mãe / Pai",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familySiblingOpt",
+    "fallback": "Irmão/Irmã",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyOtherOpt",
+    "fallback": "Outros",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyBirthDate",
+    "fallback": "Nascimento",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyMedicalNotes",
+    "fallback": "Observações Médicas ou Gerais",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyNotesPlaceholder",
+    "fallback": "Ex: Gosta de ler, possui intolerância a lactose...",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyAvatarLabel",
+    "fallback": "Avatar do Membro (Opcional)",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familySelectImage",
+    "fallback": "Selecionar Imagem",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyRemove",
+    "fallback": "Remover",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyDocumentsLabel",
+    "fallback": "Documentos & Comprovantes (Upload Direto)",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyDragDrop",
+    "fallback": "Arrastar & Soltar ou clique para fazer upload",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyAllowedFiles",
+    "fallback": "PDF, Word ou Imagens (Max 5MB)",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyAttachedFiles",
+    "fallback": "Arquivos anexados ({count}):",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyDelete",
+    "fallback": "Excluir",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familySubmitBtn",
+    "fallback": "Adicionar à Família",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyRegisteredMembers",
+    "fallback": "Membros da Família Cadastrados",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyDeleteMemberTooltip",
+    "fallback": "Excluir membro",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyNotesLabel",
+    "fallback": "Notas:",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyDocumentsCount",
+    "fallback": "Documentos ({count}):",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyDownloadTooltip",
+    "fallback": "Clique para baixar",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyDownloadBtn",
+    "fallback": "Baixar",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyEmptyTitle",
+    "fallback": "Família não catalogada",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "familyEmptyDesc",
+    "fallback": "Insira os membros ao lado para acompanhar aniversários e informações médicas unificadas.",
+    "file": "FamilyView.tsx"
+  },
+  {
+    "key": "transactionsStatement",
+    "fallback": "Extrato de Transações",
+    "file": "FinanceView.tsx"
+  },
+  {
+    "key": "categoryBudgets",
+    "fallback": "Orçamentos de Categoria",
+    "file": "FinanceView.tsx"
+  },
+  {
+    "key": "excelBudget",
+    "fallback": "Planilha Orçamentária Excel (I Love Mi)",
+    "file": "FinanceView.tsx"
+  },
+  {
+    "key": "plannerUniversal",
+    "fallback": "Planner Universal",
+    "file": "FinanceView.tsx"
+  },
+  {
+    "key": "paycheckPlanner",
+    "fallback": "Paycheck Planner (IA)",
+    "file": "FinanceView.tsx"
+  },
+  {
+    "key": "addTransaction",
+    "fallback": "Lançar Movimentação Financeira",
+    "file": "FinanceView.tsx"
+  },
+  {
+    "key": "totalConsolidated",
+    "fallback": "Totais Consolidados",
+    "file": "FinanceView.tsx"
+  },
+  {
+    "key": "defaultMonth",
+    "fallback": "Julho",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitNameRequired",
+    "fallback": "Por favor, informe o nome do hábito.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitRegisteredTitle",
+    "fallback": "Hábito Cadastrado",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitRegisteredMessage",
+    "fallback": "habitRegisteredMessage",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitCompletedCongratsTitle",
+    "fallback": "Sensacional!",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitCompletedCongratsMessage",
+    "fallback": "Você completou o hábito ",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitDeletedTitle",
+    "fallback": "Hábito Removido",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitDeletedMessage",
+    "fallback": "habitDeletedMessage",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalNameRequired",
+    "fallback": "O nome da meta é obrigatório.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalTargetInvalid",
+    "fallback": "O valor alvo deve ser um número positivo.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalDeadlineRequired",
+    "fallback": "Por favor, insira uma data limite de prazo.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalCreatedTitle",
+    "fallback": "Objetivo Criado",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalCreatedMessage",
+    "fallback": "Meta ",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalProgressInvalidTitle",
+    "fallback": "Erro de Validação",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "invalidNumberValue",
+    "fallback": "Informe um valor numérico positivo ou zero.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalAchievedTitle",
+    "fallback": "Meta Atingida! 🏆",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalAchievedMessage",
+    "fallback": "Parabéns! Você alcançou o objetivo ",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalProgressSavedTitle",
+    "fallback": "Progresso Salvo",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalProgressSavedMessage",
+    "fallback": "Progresso de ",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalCancelledTitle",
+    "fallback": "Meta Cancelada",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalCancelledMessage",
+    "fallback": "goalCancelledMessage",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "prefillNotesText",
+    "fallback": "Foco absoluto este mês! Excelente progresso na leitura diária e hidratação.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "success",
+    "fallback": "Sucesso",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "prefillDataSuccess",
+    "fallback": "Dados preenchidos para visualização!",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitsGoalsTab",
+    "fallback": "Controle de Metas & Rotina",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitsSheetTab",
+    "fallback": "Folha Habit Tracker Impressa",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitsDailyTab",
+    "fallback": "Hábitos Diários",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitsPerfTitle",
+    "fallback": "Seus Hábitos de Performance",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitsPerfDesc",
+    "fallback": "Construa disciplina diária com metas de repetição constante.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitsProgressToday",
+    "fallback": "{count} de {total} feitos hoje",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "daily",
+    "fallback": "Diário",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "weekly",
+    "fallback": "Semanal",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "deleteHabitTooltip",
+    "fallback": "Excluir hábito",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitsEmptyTitle",
+    "fallback": "Nenhum hábito cadastrado",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitsEmptyDesc",
+    "fallback": "Crie hábitos saudáveis ao lado para iniciar seu acompanhamento diário.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "addNewHabitTitle",
+    "fallback": "Adicionar Novo Hábito",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitNamePlaceholder",
+    "fallback": "Ex: Ler 15 páginas, Fazer ioga, Codar...",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "dailyRepetition",
+    "fallback": "Repetição Diária",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "saveBtn",
+    "fallback": "Salvar",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalsAddTitle",
+    "fallback": "Estipular Meta Estratégica",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalsAddDesc",
+    "fallback": "Defina alvos mensuráveis com prazos reais.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalNameLabel",
+    "fallback": "Nome do Objetivo",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalNamePlaceholder",
+    "fallback": "Ex: Atingir R$ 20k de MRR",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalTargetLabel",
+    "fallback": "Valor Alvo",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalUnitLabel",
+    "fallback": "Unidade",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalCategoryLabel",
+    "fallback": "Categoria",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "business",
+    "fallback": "Corporativo",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "financial",
+    "fallback": "Financeiro",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "fitness",
+    "fallback": "Fitness / Saúde",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "personal",
+    "fallback": "Pessoal",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalDeadlineLabel",
+    "fallback": "Prazo Limite",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalsSubmitBtn",
+    "fallback": "Criar Meta",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalsActiveTitle",
+    "fallback": "Seus Objetivos Ativos",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalProgressRatio",
+    "fallback": "Progresso: {ratio}%",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalDeadlineText",
+    "fallback": "Prazo: {date}",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalAdjustBtn",
+    "fallback": "Ajustar Valor",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "goalsEmptyTitle",
+    "fallback": "Nenhum objetivo ativo estabelecido.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitSheetTitle",
+    "fallback": "Folha Habit Tracker",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitSheetDesc",
+    "fallback": "Gerencie seus hábitos diários em uma grade de 31 dias. Clique em cada dia para preencher sua bolinha de conclusão.",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "printSheetBtn",
+    "fallback": "Imprimir Folha / PDF",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "confirmResetGrid",
+    "fallback": "Tem certeza de que deseja resetar toda a sua folha de hábitos?",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "gridResetSuccess",
+    "fallback": "Grade de hábitos resetada!",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "clearGridBtn",
+    "fallback": "Limpar Grade",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "habitCategoryHeader",
+    "fallback": "Hábito / Categoria",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "total",
+    "fallback": "Total",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "notesReflection",
+    "fallback": "Notes & Reflection (Anotações e Reflexões)",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "notesReflectionPlaceholder",
+    "fallback": "Escreva suas reflexões, metas e aprendizados do mês aqui...",
+    "file": "HabitsGoalsView.tsx"
+  },
+  {
+    "key": "invalidWeight",
+    "fallback": "Por favor, insira um peso válido.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "invalidSystolic",
+    "fallback": "Pressão sistólica inválida.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "invalidDiastolic",
+    "fallback": "Pressão diastólica inválida.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "invalidSleepHours",
+    "fallback": "Horas de sono devem ser entre 0 e 24.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "none",
+    "fallback": "Nenhum",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "noAdditionalNotes",
+    "fallback": "Sem observações adicionais.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "vitalsSavedTitle",
+    "fallback": "Sinais Vitais Salvos",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "vitalsSavedMessage",
+    "fallback": "Registro de saúde diário armazenado!",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "invalidPregnancyWeek",
+    "fallback": "A semana gestacional deve ser entre 1 e 42.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "invalidMaternalWeight",
+    "fallback": "Peso corporal inválido.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalPoppy",
+    "fallback": "Semente de papoula",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalRaspberry",
+    "fallback": "Framboesa (aprox. 1.6 cm)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalPlum",
+    "fallback": "Ameixa (aprox. 5.4 cm)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalAvocado",
+    "fallback": "Abacate (aprox. 11.6 cm)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalBanana",
+    "fallback": "Banana (aprox. 25.6 cm)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalCorn",
+    "fallback": "Espiga de milho (aprox. 30 cm)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalEggplant",
+    "fallback": "Beringela (aprox. 37.6 cm)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalMelon",
+    "fallback": "Melão amarelo (aprox. 42.4 cm)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalWatermelon",
+    "fallback": "Melancia pequena (aprox. 47.4 cm)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalReady",
+    "fallback": "Pronto para nascer!",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "mild",
+    "fallback": "Leves",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalPhysiologicalNormal",
+    "fallback": "Desenvolvimento fisiológico normal.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "pregnancySavedTitle",
+    "fallback": "Registro Gestacional Salvo",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "pregnancySavedMessage",
+    "fallback": "Semana {week} logada com sucesso!",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "foodDescriptionRequired",
+    "fallback": "Por favor, informe a descrição do alimento.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "invalidCalories",
+    "fallback": "As calorias devem ser um número positivo.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "mealLoggedTitle",
+    "fallback": "Refeição Logada",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "mealLoggedMessage",
+    "fallback": "Alimento adicionado à sua dieta de hoje!",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "mealRemovedTitle",
+    "fallback": "Refeição Removida",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "mealRemovedMessage",
+    "fallback": "Registro excluído.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "medicalRecordRemovedTitle",
+    "fallback": "Registro Médico Removido",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "medicalRecordRemovedMessage",
+    "fallback": "Histórico atualizado.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "tabHealth",
+    "fallback": "Sinais Vitais",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "tabPregnancy",
+    "fallback": "Gestação & Desenvolvimento",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "tabMeals",
+    "fallback": "Dieta e Nutrição",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "logVitals",
+    "fallback": "Logar Sinais Vitais do Dia",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "bodyWeightKg",
+    "fallback": "Peso Corporal (kg)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "systolicPressureMax",
+    "fallback": "Pressão Sistólica (max)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "diastolicPressureMin",
+    "fallback": "Pressão Diastólica (min)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "symptomsLabel",
+    "fallback": "Sintomas (Se houver)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "symptomsPlaceholder",
+    "fallback": "Dor de cabeça leve, refluxo, dores musculares...",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "notesPlaceholder",
+    "fallback": "Disposição, dores musculares, estresse, hidratação...",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "bloodPressure",
+    "fallback": "Pressão Arterial",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "notMeasured",
+    "fallback": "Não aferida",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "sleepDuration",
+    "fallback": "Tempo de Sono",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "symptomsLabelShort",
+    "fallback": "Sintomas:",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "notesLabelShort",
+    "fallback": "Notas:",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "noMedicalRecords",
+    "fallback": "Nenhum registro médico catalogado.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "newPregnancyTracking",
+    "fallback": "Novo Acompanhamento Gestacional",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "pregnancyWeekLabel",
+    "fallback": "Semana da Gestação",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "maternalWeightKg",
+    "fallback": "Peso da Gestante (kg) - Opcional",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "babySizeEstimateOptional",
+    "fallback": "Estimativa de Tamanho do Bebê (Opcional)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "babySizePlaceholder",
+    "fallback": "Deixe em branco para cálculo automático do tamanho",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "experiencedSymptoms",
+    "fallback": "Sintomas Vivenciados",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "obstetricianNotes",
+    "fallback": "Anotações do Obstetra / Notas Gerais",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "savePregnancyWeek",
+    "fallback": "Salvar Semana Gestacional",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "pregnancyTimeline",
+    "fallback": "Cronologia Gestacional e Desenvolvimento Fetal",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "weekNumber",
+    "fallback": "Semana {week}",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fetalSize",
+    "fallback": "Fetal (Tamanho)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "medicalInstructions",
+    "fallback": "Instruções médicas:",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "noPregnancyLogged",
+    "fallback": "Nenhuma semana gestacional logged.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "addFoodMeal",
+    "fallback": "Adicionar Alimento / Refeição",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "mealLabel",
+    "fallback": "Refeição",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "breakfast",
+    "fallback": "Café da Manhã",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "lunch",
+    "fallback": "Almoço",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "dinner",
+    "fallback": "Jantar",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "snack",
+    "fallback": "Lanche / Snack",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "foodDescription",
+    "fallback": "Descrição do Alimento",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "caloriesKcal",
+    "fallback": "Calorias (kcal)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "proteinGrams",
+    "fallback": "Proteínas (g)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "carbsGrams",
+    "fallback": "Carbos (g)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fatGrams",
+    "fallback": "Gorduras (g)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "logFood",
+    "fallback": "Logar Alimento",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "cumulativeIntakeToday",
+    "fallback": "Ingestão Acumulada (Hoje)",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "protein",
+    "fallback": "Proteínas",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "carbs",
+    "fallback": "Carbos",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "fat",
+    "fallback": "Gorduras",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "mealsDiary",
+    "fallback": "Diário de Refeições",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "noMealsLogged",
+    "fallback": "Nenhum alimento catalogado hoje.",
+    "file": "HealthMealsView.tsx"
+  },
+  {
+    "key": "\\n",
+    "fallback": "\\n",
+    "file": "LearningHubView.tsx"
+  },
+  {
+    "key": "learningHubLabel",
+    "fallback": "📚 EDUCATIONAL CORNER",
+    "file": "LearningHubView.tsx"
+  },
+  {
+    "key": "catProperties",
+    "fallback": "Properties & Real Estate",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "catVehicles",
+    "fallback": "Vehicles & Automotive",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "catBusinesses",
+    "fallback": "Businesses & Holdings",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "catInvestments",
+    "fallback": "Investments & Portfolios",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "catGold",
+    "fallback": "Gold & Precious Metals",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "catCollectibles",
+    "fallback": "Collectibles & Watches",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "catElectronics",
+    "fallback": "Electronics & Hardware",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "catInsurance",
+    "fallback": "Insurance & Annuities",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "catOther",
+    "fallback": "Other Assets / Liabilities",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabOverview",
+    "fallback": "Visão Geral",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabAssets",
+    "fallback": "Ativos",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabLiabilities",
+    "fallback": "Passivos / Dívidas",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabProperties",
+    "fallback": "Propriedades",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabVehicles",
+    "fallback": "Veículos",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabBusinesses",
+    "fallback": "Negócios & SaaS",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabInvestments",
+    "fallback": "Investimentos",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabGold",
+    "fallback": "Ouro & Metais",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabCollectibles",
+    "fallback": "Colecionáveis",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabElectronics",
+    "fallback": "Eletrônicos & TI",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabInsurance",
+    "fallback": "Apólices",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabDocuments",
+    "fallback": "Documentos & Comprovantes",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabTimeline",
+    "fallback": "Evolução Temporal",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "tabReports",
+    "fallback": "Relatórios Executivos",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "downloadStarted",
+    "fallback": "Download Iniciado",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "downloadStartedDesc",
+    "fallback": "Gerando planilha Excel consolidada e relatório analítico de patrimônio líquido (XLSX/PDF).",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "netWorthTitle",
+    "fallback": "Controle de Patrimônio Líquido (Net Worth)",
+    "file": "NetWorthView.tsx"
+  },
+  {
+    "key": "### 1. Conceito Central\\n[Escreva de forma muito simples]\\n\\n### 2. Analogia Ilustrativa\\n[Crie uma metáfora para explicar]\\n\\n### 3. Pontos de Dificuldade\\n[Onde eu travei ao explicar?]",
+    "fallback": "### 1. Conceito Central\\n[Escreva de forma muito simples]\\n\\n### 2. Analogia Ilustrativa\\n[Crie uma metáfora para explicar]\\n\\n### 3. Pontos de Dificuldade\\n[Onde eu travei ao explicar?]",
+    "file": "ProductivityView.tsx"
+  },
+  {
+    "key": "P: O que é Overfitting?\\nR: Quando o modelo se ajusta demais aos ruídos do treino.\\n\\nP: Qual o objetivo do Pomodoro?\\nR: Sustentar foco extremo alternado com descanso.",
+    "fallback": "P: O que é Overfitting?\\nR: Quando o modelo se ajusta demais aos ruídos do treino.\\n\\nP: Qual o objetivo do Pomodoro?\\nR: Sustentar foco extremo alternado com descanso.",
+    "file": "ProductivityView.tsx"
+  },
+  {
+    "key": "eventUpdated",
+    "fallback": "Evento Atualizado",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventUpdatedDesc",
+    "fallback": "O evento foi atualizado com sucesso no calendário.",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventCreated",
+    "fallback": "Evento Criado",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventCreatedDesc",
+    "fallback": "Novo compromisso adicionado ao calendário unificado.",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventDeleted",
+    "fallback": "Evento Removido",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventDeletedDesc",
+    "fallback": "O compromisso foi removido do sistema.",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventCompleted",
+    "fallback": "Concluído & Sincronizado",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventPending",
+    "fallback": "Status Pendente",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventCompletedDesc",
+    "fallback": "Transação sincronizada automaticamente com o módulo de finanças!",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventPendingDesc",
+    "fallback": "Marcado como pendente.",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "monthApr",
+    "fallback": "April",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "monthMay",
+    "fallback": "May",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "monthJun",
+    "fallback": "June",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "monthJul",
+    "fallback": "July",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "monthAug",
+    "fallback": "August",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "monthSep",
+    "fallback": "September",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "monthOct",
+    "fallback": "October",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "monthNov",
+    "fallback": "November",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "monthDec",
+    "fallback": "December",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "daySun",
+    "fallback": "Sun",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "dayMon",
+    "fallback": "Mon",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "dayTue",
+    "fallback": "Tue",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "dayWed",
+    "fallback": "Wed",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "dayThu",
+    "fallback": "Thu",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "dayFri",
+    "fallback": "Fri",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "daySat",
+    "fallback": "Sat",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "smartCalendarTitle",
+    "fallback": "Smart Calendar & Cash Flow Schedule",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "smartCalendarSub",
+    "fallback": "Unified financial events, paydays, bills, debt payments, goals & habits in one interactive schedule.",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "syncComplete",
+    "fallback": "Sincronização Concluída",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "syncCompleteDesc",
+    "fallback": "Agenda atualizada com dados do orçamentos, dívidas e metas.",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "autoSync",
+    "fallback": "Sync Financial Data",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "addEvent",
+    "fallback": "New Event",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "projectedPaydays",
+    "fallback": "Projected Income",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "scheduledBills",
+    "fallback": "Bills & Debts Due",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "savingsCommitments",
+    "fallback": "Savings & Goals Target",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "netMonthlyBalance",
+    "fallback": "Forecast Net Flow",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "prevMonth",
+    "fallback": "Mês Anterior",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "nextMonth",
+    "fallback": "Próximo Mês",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "all",
+    "fallback": "All",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "month",
+    "fallback": "Month",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "agenda",
+    "fallback": "Agenda",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "addEventOnDay",
+    "fallback": "Adicionar evento neste dia",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "upcomingEventsList",
+    "fallback": "Upcoming Financial & Life Events",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "noEventsFound",
+    "fallback": "No scheduled events found for this filter.",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "markPending",
+    "fallback": "Marcar Pendente",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "markCompleted",
+    "fallback": "Marcar Concluído",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "amount",
+    "fallback": "Valor",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "editEvent",
+    "fallback": "Edit Event",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "newEvent",
+    "fallback": "New Calendar Event",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "eventTitle",
+    "fallback": "Title",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "type",
+    "fallback": "Type",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "time",
+    "fallback": "Time",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "recurringEvent",
+    "fallback": "Recurring Event",
+    "file": "SmartCalendarView.tsx"
+  },
+  {
+    "key": "aiCoach.diningWarning",
+    "fallback": "Your expenses increased by 15% this month. Reducing subscriptions by $50 could help you reach your savings goal faster.",
+    "file": "AiSmartDashboard.tsx"
+  },
+  {
+    "key": "dashboard.biTitle",
+    "fallback": "Commercial & Corporate Performance Hub",
+    "file": "BusinessIntelligenceDashboard.tsx"
+  },
+  {
+    "key": "dashboard.biSubtitle",
+    "fallback": "Track revenue streams, customer acquisition, product margins, and simplified P&L statement.",
+    "file": "BusinessIntelligenceDashboard.tsx"
+  },
+  {
+    "key": "healthExcellent",
+    "fallback": "Excellent",
+    "file": "FinancialHealthDashboard.tsx"
+  },
+  {
+    "key": "healthAtRisk",
+    "fallback": "Needs Attention",
+    "file": "FinancialHealthDashboard.tsx"
+  },
+  {
+    "key": "healthGood",
+    "fallback": "Good",
+    "file": "FinancialHealthDashboard.tsx"
+  },
+  {
+    "key": "dashboard.personalWellnessTitle",
+    "fallback": "Personal Financial Health Overview",
+    "file": "FinancialHealthDashboard.tsx"
+  },
+  {
+    "key": "dashboard.personalWellnessSubtitle",
+    "fallback": "Monitor your savings rate, debt load, investment accumulation, and financial health score.",
+    "file": "FinancialHealthDashboard.tsx"
+  },
+  {
+    "key": "life4billion_data_sync",
+    "fallback": "life4billion_data_sync",
+    "file": "db.ts"
+  },
+  {
+    "key": "subscription",
+    "fallback": "subscription",
+    "file": "db.ts"
+  },
+  {
+    "key": "goals",
+    "fallback": "goals",
+    "file": "db.ts"
+  },
+  {
+    "key": "health_records",
+    "fallback": "health_records",
+    "file": "db.ts"
+  },
+  {
+    "key": "pregnancy_records",
+    "fallback": "pregnancy_records",
+    "file": "db.ts"
+  },
+  {
+    "key": "meals",
+    "fallback": "meals",
+    "file": "db.ts"
+  },
+  {
+    "key": "family_members",
+    "fallback": "family_members",
+    "file": "db.ts"
+  },
+  {
+    "key": "transactions",
+    "fallback": "transactions",
+    "file": "db.ts"
+  },
+  {
+    "key": "budgets",
+    "fallback": "budgets",
+    "file": "db.ts"
+  },
+  {
+    "key": "companies",
+    "fallback": "companies",
+    "file": "db.ts"
+  },
+  {
+    "key": "employees",
+    "fallback": "employees",
+    "file": "db.ts"
+  },
+  {
+    "key": "products",
+    "fallback": "products",
+    "file": "db.ts"
+  },
+  {
+    "key": "inventory",
+    "fallback": "inventory",
+    "file": "db.ts"
+  },
+  {
+    "key": "customers",
+    "fallback": "customers",
+    "file": "db.ts"
+  },
+  {
+    "key": "sales",
+    "fallback": "sales",
+    "file": "db.ts"
+  },
+  {
+    "key": "reports",
+    "fallback": "reports",
+    "file": "db.ts"
+  },
+  {
+    "key": "ai_history",
+    "fallback": "ai_history",
+    "file": "db.ts"
+  },
+  {
+    "key": "notifications",
+    "fallback": "notifications",
+    "file": "db.ts"
+  },
+  {
+    "key": "emergency_fund",
+    "fallback": "emergency_fund",
+    "file": "db.ts"
+  },
+  {
+    "key": "debts",
+    "fallback": "debts",
+    "file": "db.ts"
+  },
+  {
+    "key": "cards",
+    "fallback": "cards",
+    "file": "db.ts"
+  },
+  {
+    "key": "paid_debts",
+    "fallback": "paid_debts",
+    "file": "db.ts"
+  },
+  {
+    "key": "dashboard_type",
+    "fallback": "executive",
+    "file": "db.ts"
+  },
+  {
+    "key": "ebooks",
+    "fallback": "ebooks",
+    "file": "db.ts"
+  },
+  {
+    "key": "calendar_events",
+    "fallback": "calendar_events",
+    "file": "db.ts"
+  },
+  {
+    "key": "wallpaper_config",
+    "fallback": "wallpaper_config",
+    "file": "db.ts"
+  }
+]
