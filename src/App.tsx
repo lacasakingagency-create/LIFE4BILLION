@@ -56,7 +56,9 @@ import LoginView from './components/LoginView';
 import PricingView from './components/PricingView';
 import OmniSaaSLogo from './components/OmniSaaSLogo';
 import SplashScreen from './components/SplashScreen';
-import { Briefcase, Calculator, Calendar } from 'lucide-react';
+import McpServerModal from './components/McpServerModal';
+import BrandIdentityModal from './components/brand/BrandIdentityModal';
+import { Briefcase, Calculator, Calendar, Server } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
@@ -135,6 +137,8 @@ function AppContent() {
   const [isLeftProfileOpen, setIsLeftProfileOpen] = useState<boolean>(false);
   const [isRightProfileOpen, setIsRightProfileOpen] = useState<boolean>(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [isMcpModalOpen, setIsMcpModalOpen] = useState<boolean>(false);
+  const [isBrandModalOpen, setIsBrandModalOpen] = useState<boolean>(false);
 
   const [activeView, setActiveView] = useState<string>(() => {
     if (typeof window !== 'undefined') {
@@ -911,14 +915,24 @@ function AppContent() {
           <div className="p-5 border-b border-white/10 flex items-center justify-between">
             <div 
               onClick={() => setActiveView('dashboard')} 
-              className="cursor-pointer hover:opacity-80 transition"
+              className="cursor-pointer hover:opacity-85 transition"
               title={t('dashboard', 'Painel Executivo')}
             >
               <OmniSaaSLogo size="sm" />
             </div>
-            <span className="bg-white/10 text-white border border-white/15 text-[8px] font-mono font-bold px-1.5 py-0.5 rounded uppercase">
-              v2.4
-            </span>
+            <div className="flex items-center space-x-1.5">
+              <button
+                onClick={() => setIsBrandModalOpen(true)}
+                className="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 text-[9px] font-bold px-1.5 py-0.5 rounded flex items-center gap-1 transition cursor-pointer"
+                title="Manual de Identidade Visual e Logos Vetoriais Oficiais"
+              >
+                <Sparkles className="w-2.5 h-2.5 text-amber-400" />
+                <span>Logo</span>
+              </button>
+              <span className="bg-white/10 text-white border border-white/15 text-[8px] font-mono font-bold px-1.5 py-0.5 rounded uppercase">
+                v2.4
+              </span>
+            </div>
           </div>
 
           {/* Navigation List */}
@@ -1565,6 +1579,67 @@ function AppContent() {
                   </div>
                 </div>
 
+                {/* Remote MCP Server Section (Claude & ChatGPT Integration) */}
+                <div className="space-y-3 pt-4 border-t border-white/5" id="settings-mcp-section">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center">
+                      <Server className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+                      {language.startsWith('pt') ? 'Servidor Remoto MCP' : language.startsWith('es') ? 'Servidor Remoto MCP' : 'Remote MCP Server'}
+                    </label>
+                    <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center space-x-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1" />
+                      Online
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    {language.startsWith('pt')
+                      ? 'Conecte o Claude Desktop, Claude Web e o ChatGPT (Custom MCP App) para consultar e operar suas finanças e tarefas do Life4Billion.'
+                      : language.startsWith('es')
+                      ? 'Conecte Claude Desktop, Claude Web y ChatGPT (Custom MCP App) para consultar y operar sus finanzas y tareas de Life4Billion.'
+                      : 'Connect Claude Desktop, Claude Web, and ChatGPT (Custom MCP App) to query and operate your Life4Billion finances and tasks.'}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSettingsOpen(false);
+                      setIsMcpModalOpen(true);
+                    }}
+                    className="w-full py-2.5 px-3 bg-gradient-to-r from-emerald-500/20 to-indigo-500/20 hover:from-emerald-500/30 hover:to-indigo-500/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs rounded-xl flex items-center justify-center space-x-2 transition cursor-pointer"
+                  >
+                    <Server className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>{language.startsWith('pt') ? 'Abrir Central de Conexão MCP' : language.startsWith('es') ? 'Abrir Centro de Conexión MCP' : 'Open MCP Connection Center'}</span>
+                  </button>
+                </div>
+
+                {/* Brand Identity & Official Logos Section */}
+                <div className="space-y-3 pt-4 border-t border-white/5" id="settings-brand-section">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center">
+                      <Sparkles className="w-3.5 h-3.5 mr-1.5 text-amber-400" />
+                      {language.startsWith('pt') ? 'Identidade Visual & Logos (L4B)' : 'Brand Identity & Official Logos'}
+                    </label>
+                    <span className="text-[10px] font-mono font-bold text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center space-x-1">
+                      8 Entregáveis
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    {language.startsWith('pt')
+                      ? 'Consulte os 8 entregáveis oficiais da marca (horizontal, símbolo isolado, dark/light mode, ícone de app, favicon, PB), copie códigos SVG limpos ou baixe os pacotes vetoriais para uso comercial.'
+                      : 'Access the 8 official brand deliverables (horizontal, isolated symbol, dark/light mode, app icon, favicon, monochrome), copy clean SVG code, or download vector packages for commercial use.'}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSettingsOpen(false);
+                      setIsBrandModalOpen(true);
+                    }}
+                    className="w-full py-2.5 px-3 bg-gradient-to-r from-amber-500/20 to-yellow-500/15 hover:from-amber-500/30 hover:to-yellow-500/25 border border-amber-500/40 text-amber-300 font-bold text-xs rounded-xl flex items-center justify-center space-x-2 transition cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span>{language.startsWith('pt') ? 'Abrir Manual de Marca & Vetores SVG' : 'Open Brand Manual & SVG Vectors'}</span>
+                  </button>
+                </div>
+
               </div>
 
 
@@ -1579,6 +1654,22 @@ function AppContent() {
             </div>
           </div>
         )}
+
+        {/* REMOTE MODEL CONTEXT PROTOCOL (MCP) MODAL */}
+        <McpServerModal
+          isOpen={isMcpModalOpen}
+          onClose={() => setIsMcpModalOpen(false)}
+          language={language}
+          onShowNotification={(title, message, type) => handleShowNotification(title, message, type as any)}
+        />
+
+        {/* OFFICIAL BRAND IDENTITY & LOGO SUITE MODAL */}
+        <BrandIdentityModal
+          isOpen={isBrandModalOpen}
+          onClose={() => setIsBrandModalOpen(false)}
+          language={language}
+          onShowNotification={(title, message, type) => handleShowNotification(title, message, type as any)}
+        />
 
         {/* NOTIFICATIONS PANEL SIDEBAR (Right Drawer) */}
         {isNotificationsOpen && (

@@ -1,4 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="16" fill="#090d16"/>
-  <path d="M32 10L10 22l22 12 22-12-22-12zM10 42l22 12 22-12M10 32l22 12 22-12" fill="none" stroke="#10b981" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<svg viewBox="0 0 340 220" width="340" height="220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- L -->
+  <path d="M20 20 H56 V164 H124 V200 H20 Z" fill="#FFFFFF"/>
+  <!-- 4 -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M156 20 L80 148 H156 V200 H192 V148 H216 V112 H192 V20 H156 Z M156 60 L108 112 H156 V60 Z" fill="url(#fav-gold)"/>
+  <!-- B -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M228 20 H282 C302 20 316 34 316 62 C316 80 304 94 288 102 C308 108 320 124 320 152 C320 182 302 200 280 200 H228 V20 Z M264 54 V76 H280 C288 76 292 70 292 65 C292 60 288 54 280 54 H264 Z M264 126 V166 H282 C291 166 296 157 296 146 C296 135 291 126 282 126 H264 Z" fill="#FFFFFF"/>
+  <defs>
+    <linearGradient id="fav-gold" x1="30%" y1="0%" x2="70%" y2="100%">
+      <stop offset="0%" stop-color="#C99424"/>
+      <stop offset="35%" stop-color="#E5A91A"/>
+      <stop offset="70%" stop-color="#F5C448"/>
+      <stop offset="100%" stop-color="#D4991F"/>
+    </linearGradient>
+  </defs>
 </svg>

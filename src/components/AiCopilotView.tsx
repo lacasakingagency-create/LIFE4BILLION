@@ -16,11 +16,13 @@ import {
   CheckCircle2, 
   FileText,
   User,
-  Cpu
+  Cpu,
+  Server
 } from 'lucide-react';
 import { LocalDatabase } from '../utils/db';
 import { AiHistory } from '../types/schema';
 import { useLanguageTheme } from '../utils/i18n';
+import McpServerModal from './McpServerModal';
 
 interface AiCopilotViewProps {
   onShowNotification: (title: string, message: string, type: 'success' | 'warning' | 'info') => void;
@@ -32,6 +34,7 @@ export default function AiCopilotView({ onShowNotification }: AiCopilotViewProps
   const [prompt, setPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState('');
+  const [isMcpModalOpen, setIsMcpModalOpen] = useState(false);
 
   // Quick Start Templates
   const templates = language.startsWith('pt') ? [
@@ -379,6 +382,32 @@ export default function AiCopilotView({ onShowNotification }: AiCopilotViewProps
               : 'AI processing is encapsulated in our server-side Express backend. Your GEMINI_API_KEY credential is never leaked to the client\'s browser.'}
           </p>
         </div>
+
+        {/* Remote MCP Server Card */}
+        <div className="bg-gradient-to-br from-emerald-950/20 to-slate-900/60 border border-emerald-500/30 rounded-2xl p-4 text-[11px] text-slate-300 space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-1.5 text-emerald-400 font-bold uppercase tracking-wider text-[10px]">
+              <Server className="w-3.5 h-3.5" />
+              <span>Remote MCP Server</span>
+            </div>
+            <span className="flex items-center space-x-1 text-[9px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.5 rounded font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Online</span>
+            </span>
+          </div>
+          <p className="text-[10px] text-slate-400 leading-relaxed">
+            {language.startsWith('pt')
+              ? 'Conecte o Claude (Desktop/Web) e ChatGPT (Custom MCP App) para consultar e operar suas finanças e tarefas do Life4Billion.'
+              : 'Connect Claude (Desktop/Web) and ChatGPT (Custom MCP App) to query and operate your Life4Billion finances and tasks.'}
+          </p>
+          <button
+            onClick={() => setIsMcpModalOpen(true)}
+            className="w-full py-2 bg-emerald-500 hover:bg-emerald-450 text-black font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 transition cursor-pointer shadow-lg shadow-emerald-950/40"
+          >
+            <Server className="w-3.5 h-3.5" />
+            <span>{language.startsWith('pt') ? 'Configurar Claude & ChatGPT' : 'Configure Claude & ChatGPT'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Console de Chat de IA */}
@@ -403,16 +432,27 @@ export default function AiCopilotView({ onShowNotification }: AiCopilotViewProps
             </div>
           </div>
 
-          {history.length > 0 && (
-            <button 
-              onClick={handleClearHistory}
-              className="text-slate-500 hover:text-rose-400 p-1 rounded-lg text-xs font-semibold flex items-center space-x-1"
-              title={language.startsWith('pt') ? 'Limpar histórico' : language.startsWith('es') ? 'Limpiar historial' : 'Clear history'}
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setIsMcpModalOpen(true)}
+              className="px-2.5 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition"
+              title="Remote MCP Server (Claude & ChatGPT)"
             >
-              <Trash2 className="w-3.5 h-3.5" />
-              <span>{language.startsWith('pt') ? 'Limpar Diário' : language.startsWith('es') ? 'Limpiar Diario' : 'Clear Journal'}</span>
+              <Server className="w-3.5 h-3.5" />
+              <span>Remote MCP</span>
             </button>
-          )}
+
+            {history.length > 0 && (
+              <button 
+                onClick={handleClearHistory}
+                className="text-slate-500 hover:text-rose-400 p-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1"
+                title={language.startsWith('pt') ? 'Limpar histórico' : language.startsWith('es') ? 'Limpiar historial' : 'Clear history'}
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>{language.startsWith('pt') ? 'Limpar Diário' : language.startsWith('es') ? 'Limpiar Diario' : 'Clear Journal'}</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Chat History Flow */}
@@ -530,6 +570,13 @@ export default function AiCopilotView({ onShowNotification }: AiCopilotViewProps
         </div>
 
       </div>
+
+      <McpServerModal
+        isOpen={isMcpModalOpen}
+        onClose={() => setIsMcpModalOpen(false)}
+        language={language}
+        onShowNotification={onShowNotification}
+      />
 
     </div>
   );

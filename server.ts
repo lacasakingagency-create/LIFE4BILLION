@@ -13,6 +13,8 @@ import { createClient } from "@supabase/supabase-js";
 import Stripe from "stripe";
 import { AdminStore } from "./src/lib/admin/adminStore";
 import { EBook } from "./src/types/schema";
+import { handleMcpPost, handleMcpSse, handleMcpMessages, handleMcpInfo, generatePersonalMcpKey, setMcpCorsHeaders } from "./src/server/mcp/server";
+import { IN_MEMORY_MCP_KEYS } from "./src/server/mcp/auth";
 
 dotenv.config();
 
@@ -2064,6 +2066,149 @@ app.post("/api/admin/assign-role", async (req, res) => {
   }
 
   res.json({ success: true, message: `Role "${targetRole}" successfully assigned to user ${targetUserId}.` });
+});
+
+// -------------------------------------------------------------
+// REMOTE MODEL CONTEXT PROTOCOL (MCP) SERVER ENDPOINTS
+// Compatible with Claude Custom Connector and ChatGPT Custom MCP App
+// -------------------------------------------------------------
+
+// Main MCP Protocol Endpoint (Streamable HTTP / JSON-RPC 2.0)
+app.post("/api/mcp", handleMcpPost);
+
+// MCP GET - Supports either SSE negotiation or metadata manifest
+app.get("/api/mcp", (req, res) => {
+  const acceptHeader = (req.headers["accept"] || "").toLowerCase();
+  if (acceptHeader.includes("text/event-stream")) {
+    return handleMcpSse(req, res);
+  }
+  return handleMcpInfo(req, res);
+});
+
+// Dedicated SSE Endpoint for Claude / MCP clients that require explicit /sse
+app.get("/api/mcp/sse", handleMcpSse);
+
+// MCP Messages handler for active SSE sessions
+app.post("/api/mcp/messages", handleMcpMessages);
+
+// Discovery & Info endpoints
+app.get("/api/mcp/info", handleMcpInfo);
+app.get("/.well-known/mcp", handleMcpInfo);
+
+// User-Facing Endpoint: Generate Personal MCP Key for Claude/ChatGPT
+app.post("/api/mcp/keys/generate", async (req, res) => {
+  setMcpCorsHeaders(res);
+  const authHeader = req.headers["authorization"] || "";
+  let token = "";
+  if (authHeader.startsWith("Bearer ")) {
+    token = authHeader.substring(7).trim();
+  }
+
+  const { client } = getSupabaseClient(req);
+  if (!client) {
+    return res.status(500).json({ success: false, error: "Supabase not configured" });
+  }
+
+  let userId = "";
+  let email = "";
+  if (token) {
+    try {
+      const { data } = await client.auth.getUser(token);
+      if (data?.user?.id) {
+        userId = data.user.id;
+        email = data.user.email || "";
+      }
+    } catch {}
+  }
+
+  if (!userId && req.body?.userId) {
+    userId = String(req.body.userId).trim();
+  }
+
+  if (!userId) {
+    return res.status(401).json({ success: false, error: "Authentication required to generate MCP key" });
+  }
+
+  const result = await generatePersonalMcpKey(userId, email, req.headers);
+  return res.json(result);
+});
+
+// User-Facing Endpoint: List MCP Keys
+app.get("/api/mcp/keys", async (req, res) => {
+  setMcpCorsHeaders(res);
+  const authHeader = req.headers["authorization"] || "";
+  let token = "";
+  if (authHeader.startsWith("Bearer ")) {
+    token = authHeader.substring(7).trim();
+  }
+
+  const { client } = getSupabaseClient(req);
+  if (!client) {
+    return res.status(500).json({ success: false, error: "Supabase not configured" });
+  }
+
+  let userId = "";
+  if (token) {
+    try {
+      const { data } = await client.auth.getUser(token);
+      if (data?.user?.id) {
+        userId = data.user.id;
+      }
+    } catch {}
+  }
+
+  if (!userId && req.query?.userId) {
+    userId = String(req.query.userId).trim();
+  }
+
+  if (!userId) {
+    return res.status(401).json({ success: false, error: "Authentication required" });
+  }
+
+  try {
+    let { data, error } = await client
+      .from("life4billion_store")
+      .select("key, value, created_at, updated_at")
+      .eq("user_id", userId)
+      .like("key", "mcp_api_key_%");
+
+    if (error || !data || data.length === 0) {
+      const fallback = await client
+        .from("omnisaas_store")
+        .select("key, value, created_at, updated_at")
+        .eq("user_id", userId)
+        .like("key", "mcp_api_key_%");
+      if (!fallback.error && fallback.data) {
+        data = fallback.data;
+      }
+    }
+
+    const keysMap = new Map<string, { key: string; created_at: string; label: string }>();
+
+    for (const row of (data || [])) {
+      const k = row.value?.apiKey || row.key.replace("mcp_api_key_", "");
+      keysMap.set(k, {
+        key: k,
+        created_at: row.value?.created_at || row.updated_at,
+        label: row.value?.label || "MCP API Key"
+      });
+    }
+
+    for (const [k, val] of IN_MEMORY_MCP_KEYS.entries()) {
+      if (val.userId === userId) {
+        keysMap.set(k, {
+          key: k,
+          created_at: val.createdAt,
+          label: "Claude & ChatGPT MCP Key"
+        });
+      }
+    }
+
+    const keys = Array.from(keysMap.values());
+    return res.json({ success: true, keys });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 async function startServer() {
