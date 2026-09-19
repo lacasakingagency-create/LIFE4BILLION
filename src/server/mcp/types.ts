@@ -1,3 +1,5 @@
+import { McpPermissions } from "./permissions";
+
 /**
  * Model Context Protocol (MCP) TypeScript Definitions
  * Standard 2024-11-05 Specification
@@ -61,4 +63,7 @@ export interface AuthenticatedUser {
   email?: string;
   role?: string;
   authMethod: "supabase_jwt" | "l4b_mcp_key";
+  permissions?: McpPermissions;
+  apiKey?: string;
+  status?: "active" | "revoked";
 }

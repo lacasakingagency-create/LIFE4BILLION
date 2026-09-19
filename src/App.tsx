@@ -58,6 +58,7 @@ import OmniSaaSLogo from './components/OmniSaaSLogo';
 import SplashScreen from './components/SplashScreen';
 import McpServerModal from './components/McpServerModal';
 import BrandIdentityModal from './components/brand/BrandIdentityModal';
+import { McpIntegrationSettings } from './components/McpIntegrationSettings';
 import { Briefcase, Calculator, Calendar, Server } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -137,6 +138,7 @@ function AppContent() {
   const [isLeftProfileOpen, setIsLeftProfileOpen] = useState<boolean>(false);
   const [isRightProfileOpen, setIsRightProfileOpen] = useState<boolean>(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [settingsActiveTab, setSettingsActiveTab] = useState<'general' | 'integrations'>('general');
   const [isMcpModalOpen, setIsMcpModalOpen] = useState<boolean>(false);
   const [isBrandModalOpen, setIsBrandModalOpen] = useState<boolean>(false);
 
@@ -1349,6 +1351,7 @@ function AppContent() {
                     </button>
                     <button 
                       onClick={() => {
+                        setSettingsActiveTab('general');
                         setIsSettingsOpen(true);
                         setIsRightProfileOpen(false);
                       }}
@@ -1356,6 +1359,17 @@ function AppContent() {
                     >
                       <Settings className="w-3.5 h-3.5 text-emerald-400" />
                       <span>{t('settings', 'Definições')}</span>
+                    </button>
+                    <button 
+                      onClick={() => {
+                        setSettingsActiveTab('integrations');
+                        setIsSettingsOpen(true);
+                        setIsRightProfileOpen(false);
+                      }}
+                      className="w-full flex items-center space-x-2 px-3 py-2 text-left hover:bg-emerald-500/10 rounded-lg text-emerald-300 hover:text-emerald-200"
+                    >
+                      <Server className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Integrações (MCP)</span>
                     </button>
                     <div className="border-t border-white/5 my-1" />
                     <button 
@@ -1430,11 +1444,15 @@ function AppContent() {
 
         </main>
 
-        {/* SETTINGS MODAL (Theme and Language Configuration) */}
+        {/* SETTINGS MODAL (Definições -> Geral & Integrações MCP) */}
         {isSettingsOpen && (
           <div className="fixed inset-0 bg-black/65 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setIsSettingsOpen(false)}>
-            <div className="bg-slate-900 border border-white/10 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl animate-fade-in max-h-[90vh] flex flex-col" onClick={(e) => e.stopPropagation()}>
-              <div className="p-5 border-b border-white/5 flex justify-between items-center bg-slate-950 shrink-0">
+            <div 
+              className={`bg-slate-900 border border-white/10 w-full ${settingsActiveTab === 'integrations' ? 'max-w-3xl' : 'max-w-md'} rounded-2xl overflow-hidden shadow-2xl animate-fade-in max-h-[90vh] flex flex-col transition-all duration-200`} 
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="p-4 md:p-5 border-b border-white/5 flex justify-between items-center bg-slate-950 shrink-0">
                 <div className="flex items-center space-x-2">
                   <Settings className="w-4 h-4 text-emerald-400" />
                   <h3 className="text-sm font-bold text-white">{t('settings', 'Definições / Configurações')}</h3>
@@ -1448,200 +1466,236 @@ function AppContent() {
                 </button>
               </div>
 
-              <div className="p-6 space-y-6 overflow-y-auto flex-1">
-                {/* Cloud Sync Section */}
-                <div className="space-y-3 pb-6 border-b border-white/5">
-                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center">
-                    <Cloud className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
-                    {language.startsWith('pt') ? 'Sincronização em Nuvem' : 'Cloud Synchronization'}
-                  </label>
-                  <p className="text-[11px] text-slate-500 leading-relaxed">
-                    {language.startsWith('pt')
-                      ? 'Seus dados financeiros, metas e rotinas são sincronizados com segurança e isolamento total.'
-                      : 'Your financial data, goals, and routines are synchronized securely with full user isolation.'}
-                  </p>
+              {/* Sub-Navigation Tabs: Geral & Aparência | Integrações (MCP) */}
+              <div className="flex border-b border-white/10 bg-slate-950/60 px-4 md:px-6 shrink-0 space-x-2 overflow-x-auto">
+                <button
+                  type="button"
+                  onClick={() => setSettingsActiveTab('general')}
+                  className={`py-3 px-3 text-xs font-semibold flex items-center space-x-2 border-b-2 transition whitespace-nowrap cursor-pointer ${
+                    settingsActiveTab === 'general'
+                      ? 'border-emerald-400 text-emerald-400 bg-emerald-500/5'
+                      : 'border-transparent text-slate-400 hover:text-white hover:border-slate-700'
+                  }`}
+                >
+                  <Palette className="w-3.5 h-3.5" />
+                  <span>{language.startsWith('pt') ? 'Geral & Aparência' : 'General & Appearance'}</span>
+                </button>
 
-                  <div className="grid grid-cols-2 gap-2 pt-1.5">
-                    <button
-                      onClick={handleSupabasePush}
-                      disabled={isSyncing || isPulling}
-                      className="py-2 px-3 bg-emerald-500 hover:bg-emerald-450 disabled:opacity-35 text-black font-bold text-[10px] uppercase tracking-wider rounded-lg flex items-center justify-center space-x-1.5 transition cursor-pointer"
-                    >
-                      <Cloud className="w-3.5 h-3.5" />
-                      <span>{isSyncing ? 'Sincronizando...' : (language.startsWith('pt') ? 'Enviar Dados (Push)' : 'Push Data')}</span>
-                    </button>
-                    
-                    <button
-                      onClick={handleSupabasePull}
-                      disabled={isSyncing || isPulling}
-                      className="py-2 px-3 bg-slate-800 hover:bg-slate-750 disabled:opacity-35 text-white border border-white/5 font-bold text-[10px] uppercase tracking-wider rounded-lg flex items-center justify-center space-x-1.5 transition cursor-pointer"
-                    >
-                      <Download className="w-3.5 h-3.5" />
-                      <span>{isPulling ? 'Baixando...' : (language.startsWith('pt') ? 'Baixar Dados (Pull)' : 'Pull Data')}</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Global Theme Color System (Profile -> Settings -> Appearance) */}
-                <div className="space-y-4 pt-4 border-t border-white/5" id="settings-appearance-section">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center">
-                      <Palette className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
-                      {language.startsWith('pt') ? 'Aparência — Cor do Tema' : language.startsWith('es') ? 'Apariencia — Color del Tema' : 'Appearance — Theme Color'}
-                    </label>
-                    <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
-                      {getThemeColorById(themeColor).hex}
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 leading-relaxed">
-                    {language.startsWith('pt') 
-                      ? 'Defina a cor de identidade da aplicação. O Cabeçalho e a Sidebar serão sincronizados imediatamente.' 
-                      : language.startsWith('es')
-                      ? 'Defina el color de identidad de la aplicación. El Encabezado y la Sidebar se sincronizarán inmediatamente.'
-                      : 'Set the application identity color. The Header and Sidebar will synchronize immediately.'}
-                  </p>
-
-                  {/* 5 Theme Color Swatches */}
-                  <div className="grid grid-cols-5 gap-2 pt-1" id="theme-color-selector">
-                    {THEME_COLOR_OPTIONS.map((c) => {
-                      const isActive = themeColor === c.id;
-                      const name = language.startsWith('pt') ? c.namePt : language.startsWith('es') ? c.nameEs : c.nameEn;
-
-                      return (
-                        <button
-                          key={c.id}
-                          type="button"
-                          onClick={() => setThemeColor(c.id)}
-                          title={`${name} (${c.hex})`}
-                          className={`flex flex-col items-center justify-center p-2 rounded-xl transition-all cursor-pointer border ${
-                            isActive 
-                              ? 'bg-white/10 border-white ring-2 ring-white/50 scale-105 shadow-xl' 
-                              : 'bg-black/30 border-white/10 hover:border-white/20 hover:bg-white/5'
-                          }`}
-                        >
-                          <div 
-                            className="w-7 h-7 rounded-lg shadow-md flex items-center justify-center relative border border-white/20"
-                            style={{ backgroundColor: c.hex }}
-                          >
-                            {isActive && <Check className="w-4 h-4 text-white stroke-[3.5] drop-shadow" />}
-                          </div>
-                          <span className={`text-[9.5px] font-medium tracking-tight mt-1.5 truncate max-w-full ${
-                            isActive ? 'text-white font-bold' : 'text-slate-400'
-                          }`}>
-                            {name}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Accent Color Customization Section */}
-                <div className="space-y-3 pt-4 border-t border-white/5" id="settings-accent-color-section">
-                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center">
-                    <Palette className="w-3.5 h-3.5 mr-1.5 text-indigo-400" />
-                    {language.startsWith('pt') ? 'Cor de Destaque' : language.startsWith('es') ? 'Color de Acento' : 'Accent Color'}
-                  </label>
-                  <p className="text-[11px] text-slate-500">
-                    {language.startsWith('pt') 
-                      ? 'Selecione uma cor para personalizar todos os botões, links, ícones e destaques do SaaS.' 
-                      : language.startsWith('es')
-                      ? 'Seleccione un color para personalizar todos los botones, enlaces, iconos y detalles del SaaS.'
-                      : 'Select an accent color to personalize all buttons, links, icons, and indicators in the SaaS.'}
-                  </p>
-                  <div className="flex items-center gap-2 pt-1" id="accent-color-selector">
-                    {[
-                      { id: 'blue', label: language.startsWith('pt') ? 'Azul' : language.startsWith('es') ? 'Azul' : 'Blue', color: 'bg-blue-500' },
-                      { id: 'emerald', label: language.startsWith('pt') ? 'Verde' : language.startsWith('es') ? 'Esmeralda' : 'Emerald', color: 'bg-emerald-500' },
-                      { id: 'rose', label: language.startsWith('pt') ? 'Rosa' : language.startsWith('es') ? 'Rosa' : 'Rose', color: 'bg-rose-500' },
-                      { id: 'purple', label: language.startsWith('pt') ? 'Roxo' : language.startsWith('es') ? 'Púrpura' : 'Purple', color: 'bg-purple-500' },
-                      { id: 'orange', label: language.startsWith('pt') ? 'Laranja' : language.startsWith('es') ? 'Naranja' : 'Orange', color: 'bg-orange-500' }
-                    ].map((c) => {
-                      const isActive = accent === c.id;
-                      return (
-                        <button
-                          key={c.id}
-                          onClick={() => setAccent(c.id)}
-                          title={c.label}
-                          type="button"
-                          className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer border ${
-                            isActive 
-                              ? 'ring-2 ring-white/45 scale-110 border-white text-white' 
-                              : 'border-white/10 hover:border-white/20'
-                          }`}
-                        >
-                          <span className={`w-5 h-5 rounded-lg ${c.color} flex items-center justify-center shadow-lg relative`}>
-                            {isActive && <Check className="w-3 h-3 text-white stroke-[3.5]" />}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Remote MCP Server Section (Claude & ChatGPT Integration) */}
-                <div className="space-y-3 pt-4 border-t border-white/5" id="settings-mcp-section">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center">
-                      <Server className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
-                      {language.startsWith('pt') ? 'Servidor Remoto MCP' : language.startsWith('es') ? 'Servidor Remoto MCP' : 'Remote MCP Server'}
-                    </label>
-                    <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center space-x-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1" />
-                      Online
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 leading-relaxed">
-                    {language.startsWith('pt')
-                      ? 'Conecte o Claude Desktop, Claude Web e o ChatGPT (Custom MCP App) para consultar e operar suas finanças e tarefas do Life4Billion.'
-                      : language.startsWith('es')
-                      ? 'Conecte Claude Desktop, Claude Web y ChatGPT (Custom MCP App) para consultar y operar sus finanzas y tareas de Life4Billion.'
-                      : 'Connect Claude Desktop, Claude Web, and ChatGPT (Custom MCP App) to query and operate your Life4Billion finances and tasks.'}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsSettingsOpen(false);
-                      setIsMcpModalOpen(true);
-                    }}
-                    className="w-full py-2.5 px-3 bg-gradient-to-r from-emerald-500/20 to-indigo-500/20 hover:from-emerald-500/30 hover:to-indigo-500/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs rounded-xl flex items-center justify-center space-x-2 transition cursor-pointer"
-                  >
-                    <Server className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>{language.startsWith('pt') ? 'Abrir Central de Conexão MCP' : language.startsWith('es') ? 'Abrir Centro de Conexión MCP' : 'Open MCP Connection Center'}</span>
-                  </button>
-                </div>
-
-                {/* Brand Identity & Official Logos Section */}
-                <div className="space-y-3 pt-4 border-t border-white/5" id="settings-brand-section">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center">
-                      <Sparkles className="w-3.5 h-3.5 mr-1.5 text-amber-400" />
-                      {language.startsWith('pt') ? 'Identidade Visual & Logos (L4B)' : 'Brand Identity & Official Logos'}
-                    </label>
-                    <span className="text-[10px] font-mono font-bold text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center space-x-1">
-                      8 Entregáveis
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 leading-relaxed">
-                    {language.startsWith('pt')
-                      ? 'Consulte os 8 entregáveis oficiais da marca (horizontal, símbolo isolado, dark/light mode, ícone de app, favicon, PB), copie códigos SVG limpos ou baixe os pacotes vetoriais para uso comercial.'
-                      : 'Access the 8 official brand deliverables (horizontal, isolated symbol, dark/light mode, app icon, favicon, monochrome), copy clean SVG code, or download vector packages for commercial use.'}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsSettingsOpen(false);
-                      setIsBrandModalOpen(true);
-                    }}
-                    className="w-full py-2.5 px-3 bg-gradient-to-r from-amber-500/20 to-yellow-500/15 hover:from-amber-500/30 hover:to-yellow-500/25 border border-amber-500/40 text-amber-300 font-bold text-xs rounded-xl flex items-center justify-center space-x-2 transition cursor-pointer"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    <span>{language.startsWith('pt') ? 'Abrir Manual de Marca & Vetores SVG' : 'Open Brand Manual & SVG Vectors'}</span>
-                  </button>
-                </div>
-
+                <button
+                  type="button"
+                  onClick={() => setSettingsActiveTab('integrations')}
+                  className={`py-3 px-3 text-xs font-semibold flex items-center space-x-2 border-b-2 transition whitespace-nowrap cursor-pointer ${
+                    settingsActiveTab === 'integrations'
+                      ? 'border-emerald-400 text-emerald-400 bg-emerald-500/5'
+                      : 'border-transparent text-slate-400 hover:text-white hover:border-slate-700'
+                  }`}
+                >
+                  <Server className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="flex items-center">
+                    {language.startsWith('pt') ? 'Integrações › MCP' : 'Integrations › MCP'}
+                    <span className="ml-1.5 w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  </span>
+                </button>
               </div>
 
+              {/* Modal Body */}
+              <div className="p-4 md:p-6 space-y-6 overflow-y-auto flex-1">
+                {settingsActiveTab === 'integrations' ? (
+                  <McpIntegrationSettings
+                    language={language}
+                    onShowNotification={(title, message, type) => handleShowNotification(title, message, type as any)}
+                    onClose={() => setIsSettingsOpen(false)}
+                  />
+                ) : (
+                  <>
+                    {/* Cloud Sync Section */}
+                    <div className="space-y-3 pb-6 border-b border-white/5">
+                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center">
+                        <Cloud className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+                        {language.startsWith('pt') ? 'Sincronização em Nuvem' : 'Cloud Synchronization'}
+                      </label>
+                      <p className="text-[11px] text-slate-500 leading-relaxed">
+                        {language.startsWith('pt')
+                          ? 'Seus dados financeiros, metas e rotinas são sincronizados com segurança e isolamento total.'
+                          : 'Your financial data, goals, and routines are synchronized securely with full user isolation.'}
+                      </p>
+
+                      <div className="grid grid-cols-2 gap-2 pt-1.5">
+                        <button
+                          onClick={handleSupabasePush}
+                          disabled={isSyncing || isPulling}
+                          className="py-2 px-3 bg-emerald-500 hover:bg-emerald-450 disabled:opacity-35 text-black font-bold text-[10px] uppercase tracking-wider rounded-lg flex items-center justify-center space-x-1.5 transition cursor-pointer"
+                        >
+                          <Cloud className="w-3.5 h-3.5" />
+                          <span>{isSyncing ? 'Sincronizando...' : (language.startsWith('pt') ? 'Enviar Dados (Push)' : 'Push Data')}</span>
+                        </button>
+                        
+                        <button
+                          onClick={handleSupabasePull}
+                          disabled={isSyncing || isPulling}
+                          className="py-2 px-3 bg-slate-800 hover:bg-slate-750 disabled:opacity-35 text-white border border-white/5 font-bold text-[10px] uppercase tracking-wider rounded-lg flex items-center justify-center space-x-1.5 transition cursor-pointer"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>{isPulling ? 'Baixando...' : (language.startsWith('pt') ? 'Baixar Dados (Pull)' : 'Pull Data')}</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Global Theme Color System (Profile -> Settings -> Appearance) */}
+                    <div className="space-y-4 pt-4 border-t border-white/5" id="settings-appearance-section">
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center">
+                          <Palette className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+                          {language.startsWith('pt') ? 'Aparência — Cor do Tema' : language.startsWith('es') ? 'Apariencia — Color del Tema' : 'Appearance — Theme Color'}
+                        </label>
+                        <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                          {getThemeColorById(themeColor).hex}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 leading-relaxed">
+                        {language.startsWith('pt') 
+                          ? 'Defina a cor de identidade da aplicação. O Cabeçalho e a Sidebar serão sincronizados imediatamente.' 
+                          : language.startsWith('es')
+                          ? 'Defina el color de identidad de la aplicación. El Encabezado y la Sidebar se sincronizarán inmediatamente.'
+                          : 'Set the application identity color. The Header and Sidebar will synchronize immediately.'}
+                      </p>
+
+                      {/* 5 Theme Color Swatches */}
+                      <div className="grid grid-cols-5 gap-2 pt-1" id="theme-color-selector">
+                        {THEME_COLOR_OPTIONS.map((c) => {
+                          const isActive = themeColor === c.id;
+                          const name = language.startsWith('pt') ? c.namePt : language.startsWith('es') ? c.nameEs : c.nameEn;
+
+                          return (
+                            <button
+                              key={c.id}
+                              type="button"
+                              onClick={() => setThemeColor(c.id)}
+                              title={`${name} (${c.hex})`}
+                              className={`flex flex-col items-center justify-center p-2 rounded-xl transition-all cursor-pointer border ${
+                                isActive 
+                                  ? 'bg-white/10 border-white ring-2 ring-white/50 scale-105 shadow-xl' 
+                                  : 'bg-black/30 border-white/10 hover:border-white/20 hover:bg-white/5'
+                              }`}
+                            >
+                              <div 
+                                className="w-7 h-7 rounded-lg shadow-md flex items-center justify-center relative border border-white/20"
+                                style={{ backgroundColor: c.hex }}
+                              >
+                                {isActive && <Check className="w-4 h-4 text-white stroke-[3.5] drop-shadow" />}
+                              </div>
+                              <span className={`text-[9.5px] font-medium tracking-tight mt-1.5 truncate max-w-full ${
+                                isActive ? 'text-white font-bold' : 'text-slate-400'
+                              }`}>
+                                {name}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Accent Color Customization Section */}
+                    <div className="space-y-3 pt-4 border-t border-white/5" id="settings-accent-color-section">
+                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center">
+                        <Palette className="w-3.5 h-3.5 mr-1.5 text-indigo-400" />
+                        {language.startsWith('pt') ? 'Cor de Destaque' : language.startsWith('es') ? 'Color de Acento' : 'Accent Color'}
+                      </label>
+                      <p className="text-[11px] text-slate-500">
+                        {language.startsWith('pt') 
+                          ? 'Selecione uma cor para personalizar todos os botões, links, ícones e destaques do SaaS.' 
+                          : language.startsWith('es')
+                          ? 'Seleccione un color para personalizar todos los botones, enlaces, iconos y detalles del SaaS.'
+                          : 'Select an accent color to personalize all buttons, links, icons, and indicators in the SaaS.'}
+                      </p>
+                      <div className="flex items-center gap-2 pt-1" id="accent-color-selector">
+                        {[
+                          { id: 'blue', label: language.startsWith('pt') ? 'Azul' : language.startsWith('es') ? 'Azul' : 'Blue', color: 'bg-blue-500' },
+                          { id: 'emerald', label: language.startsWith('pt') ? 'Verde' : language.startsWith('es') ? 'Esmeralda' : 'Emerald', color: 'bg-emerald-500' },
+                          { id: 'rose', label: language.startsWith('pt') ? 'Rosa' : language.startsWith('es') ? 'Rosa' : 'Rose', color: 'bg-rose-500' },
+                          { id: 'purple', label: language.startsWith('pt') ? 'Roxo' : language.startsWith('es') ? 'Púrpura' : 'Purple', color: 'bg-purple-500' },
+                          { id: 'orange', label: language.startsWith('pt') ? 'Laranja' : language.startsWith('es') ? 'Naranja' : 'Orange', color: 'bg-orange-500' }
+                        ].map((c) => {
+                          const isActive = accent === c.id;
+                          return (
+                            <button
+                              key={c.id}
+                              onClick={() => setAccent(c.id)}
+                              title={c.label}
+                              type="button"
+                              className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer border ${
+                                isActive 
+                                  ? 'ring-2 ring-white/45 scale-110 border-white text-white' 
+                                  : 'border-white/10 hover:border-white/20'
+                              }`}
+                            >
+                              <span className={`w-5 h-5 rounded-lg ${c.color} flex items-center justify-center shadow-lg relative`}>
+                                {isActive && <Check className="w-3 h-3 text-white stroke-[3.5]" />}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Remote MCP Server Section (Claude & ChatGPT Integration) */}
+                    <div className="space-y-3 pt-4 border-t border-white/5" id="settings-mcp-section">
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center">
+                          <Server className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+                          {language.startsWith('pt') ? 'Integrações › Servidor MCP' : 'Integrations › Remote MCP'}
+                        </label>
+                        <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center space-x-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1" />
+                          Online
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 leading-relaxed">
+                        {language.startsWith('pt')
+                          ? 'Conecte o Claude Desktop, Claude Web e o ChatGPT (Custom MCP App) para consultar e operar suas finanças e tarefas do Life4Billion.'
+                          : 'Connect Claude Desktop, Claude Web, and ChatGPT (Custom MCP App) to query and operate your Life4Billion finances and tasks.'}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setSettingsActiveTab('integrations')}
+                        className="w-full py-2.5 px-3 bg-gradient-to-r from-emerald-500/20 to-indigo-500/20 hover:from-emerald-500/30 hover:to-indigo-500/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs rounded-xl flex items-center justify-center space-x-2 transition cursor-pointer"
+                      >
+                        <Server className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>{language.startsWith('pt') ? 'Abrir Definições › Integrações › MCP' : 'Open Settings › Integrations › MCP'}</span>
+                      </button>
+                    </div>
+
+                    {/* Brand Identity & Official Logos Section */}
+                    <div className="space-y-3 pt-4 border-t border-white/5" id="settings-brand-section">
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center">
+                          <Sparkles className="w-3.5 h-3.5 mr-1.5 text-amber-400" />
+                          {language.startsWith('pt') ? 'Identidade Visual & Logos (L4B)' : 'Brand Identity & Official Logos'}
+                        </label>
+                        <span className="text-[10px] font-mono font-bold text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center space-x-1">
+                          8 Entregáveis
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 leading-relaxed">
+                        {language.startsWith('pt')
+                          ? 'Consulte os 8 entregáveis oficiais da marca (horizontal, símbolo isolado, dark/light mode, ícone de app, favicon, PB), copie códigos SVG limpos ou baixe os pacotes vetoriais para uso comercial.'
+                          : 'Access the 8 official brand deliverables (horizontal, isolated symbol, dark/light mode, app icon, favicon, monochrome), copy clean SVG code, or download vector packages for commercial use.'}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsSettingsOpen(false);
+                          setIsBrandModalOpen(true);
+                        }}
+                        className="w-full py-2.5 px-3 bg-gradient-to-r from-amber-500/20 to-yellow-500/15 hover:from-amber-500/30 hover:to-yellow-500/25 border border-amber-500/40 text-amber-300 font-bold text-xs rounded-xl flex items-center justify-center space-x-2 transition cursor-pointer"
+                      >
+                        <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                        <span>{language.startsWith('pt') ? 'Abrir Manual de Marca & Vetores SVG' : 'Open Brand Manual & SVG Vectors'}</span>
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
 
               <div className="p-4 bg-[#0D0D0E] border-t border-white/5 flex justify-end">
                 <button

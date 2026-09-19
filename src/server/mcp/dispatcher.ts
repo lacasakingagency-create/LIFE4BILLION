@@ -8,6 +8,7 @@ import { JsonRpcRequest, JsonRpcResponse, AuthenticatedUser } from "./types";
 import { LIFE4BILLION_MCP_TOOLS, findMcpTool } from "./tools";
 import { sanitizeToolArguments, createSupabaseClient, getSupabaseCredentials } from "./auth";
 import { executeMcpTool } from "./handlers";
+import { isToolAllowed } from "./permissions";
 
 export async function dispatchMcpMessage(
   message: JsonRpcRequest,
@@ -129,6 +130,18 @@ export async function dispatchMcpMessage(
           error: {
             code: -32001,
             message: "Security Violation: Cross-tenant data access denied. You cannot query or modify data belonging to another user."
+          }
+        };
+      }
+
+      // Permission Check: ensure tool is authorized by user permissions
+      if (!isToolAllowed(toolName, user.permissions)) {
+        return {
+          jsonrpc: "2.0",
+          id: reqId,
+          error: {
+            code: -32003,
+            message: `Acesso negado: A ferramenta '${toolName}' não possui permissão ativa para a sua conexão MCP. Ative esta permissão em Definições -> Integrações -> MCP.`
           }
         };
       }

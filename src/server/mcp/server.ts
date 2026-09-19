@@ -9,6 +9,7 @@ import { authenticateMcpRequest, createSupabaseClient, getSupabaseCredentials, I
 import { dispatchMcpMessage } from "./dispatcher";
 import { LIFE4BILLION_MCP_TOOLS } from "./tools";
 import { JsonRpcRequest } from "./types";
+import { McpPermissions, DEFAULT_MCP_PERMISSIONS, normalizePermissions } from "./permissions";
 
 // Active SSE sessions for clients using SSE transport
 interface SseSession {
@@ -233,7 +234,7 @@ export async function generatePersonalMcpKey(
   userId: string,
   email?: string,
   reqHeaders?: Record<string, any>
-): Promise<{ success: boolean; apiKey?: string; error?: string }> {
+): Promise<{ success: boolean; apiKey?: string; permissions?: McpPermissions; error?: string }> {
   if (!userId) {
     return { success: false, error: "User ID is required" };
   }
@@ -247,12 +248,17 @@ export async function generatePersonalMcpKey(
   const randomSecret = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   const apiKey = `l4b_mcp_${randomSecret}`;
 
+  // Fetch any existing permissions configured for this user, or use defaults
+  const permissions = await getMcpPermissions(userId, undefined, reqHeaders);
+
   // Store immediately in memory cache for 100% resilient access
   IN_MEMORY_MCP_KEYS.set(apiKey, {
     userId,
     email,
     role: "user",
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    permissions,
+    status: "active"
   });
 
   if (client) {
@@ -275,7 +281,9 @@ export async function generatePersonalMcpKey(
             userId,
             email: email || null,
             created_at: new Date().toISOString(),
-            label: "Claude & ChatGPT MCP Key"
+            label: "Claude & ChatGPT MCP Key",
+            permissions,
+            status: "active"
           },
           user_id: userId,
           updated_at: new Date().toISOString()
@@ -285,5 +293,210 @@ export async function generatePersonalMcpKey(
     }
   }
 
-  return { success: true, apiKey };
+  return { success: true, apiKey, permissions };
+}
+
+/**
+ * Revokes a Personal MCP Key or all keys for a user, disabling AI access immediately.
+ * Does NOT touch or delete user financial/personal data.
+ */
+export async function revokePersonalMcpKey(
+  userId: string,
+  apiKey?: string,
+  reqHeaders?: Record<string, any>
+): Promise<{ success: boolean; revokedCount: number; error?: string }> {
+  if (!userId) {
+    return { success: false, revokedCount: 0, error: "User ID is required" };
+  }
+
+  let revokedCount = 0;
+
+  // 1. Invalidate in in-memory cache
+  for (const [k, val] of IN_MEMORY_MCP_KEYS.entries()) {
+    if (val.userId === userId && (!apiKey || k === apiKey)) {
+      val.status = "revoked";
+      IN_MEMORY_MCP_KEYS.delete(k);
+      revokedCount++;
+    }
+  }
+
+  // 2. Mark as revoked in Supabase database
+  const config = getSupabaseCredentials(reqHeaders);
+  const client = createSupabaseClient(config);
+  if (client) {
+    try {
+      let tableName = "life4billion_store";
+      const check = await client.from("life4billion_store").select("key").limit(1);
+      if (check.error) {
+        const fallbackCheck = await client.from("omnisaas_store").select("key").limit(1);
+        if (!fallbackCheck.error) {
+          tableName = "omnisaas_store";
+        }
+      }
+
+      if (apiKey) {
+        await client
+          .from(tableName)
+          .update({
+            value: { apiKey, userId, status: "revoked", revoked_at: new Date().toISOString() },
+            updated_at: new Date().toISOString()
+          })
+          .eq("key", `mcp_api_key_${apiKey}`)
+          .eq("user_id", userId);
+      } else {
+        // Mark all user MCP keys as revoked
+        const { data } = await client
+          .from(tableName)
+          .select("key, value")
+          .eq("user_id", userId)
+          .like("key", "mcp_api_key_%");
+
+        if (data && data.length > 0) {
+          for (const row of data) {
+            await client
+              .from(tableName)
+              .update({
+                value: { ...(row.value || {}), status: "revoked", revoked_at: new Date().toISOString() },
+                updated_at: new Date().toISOString()
+              })
+              .eq("key", row.key)
+              .eq("user_id", userId);
+          }
+        }
+      }
+    } catch (err: any) {
+      console.warn("[MCP Supabase Revoke Warning]:", err.message || err);
+    }
+  }
+
+  return { success: true, revokedCount };
+}
+
+/**
+ * Gets currently active permissions for a user
+ */
+export async function getMcpPermissions(
+  userId: string,
+  apiKey?: string,
+  reqHeaders?: Record<string, any>
+): Promise<McpPermissions> {
+  if (!userId) return { ...DEFAULT_MCP_PERMISSIONS };
+
+  // Check in-memory key first
+  if (apiKey) {
+    const memKey = IN_MEMORY_MCP_KEYS.get(apiKey);
+    if (memKey?.permissions) {
+      return normalizePermissions(memKey.permissions);
+    }
+  }
+
+  for (const [, val] of IN_MEMORY_MCP_KEYS.entries()) {
+    if (val.userId === userId && val.permissions && val.status !== "revoked") {
+      return normalizePermissions(val.permissions);
+    }
+  }
+
+  // Check Supabase
+  const config = getSupabaseCredentials(reqHeaders);
+  const client = createSupabaseClient(config);
+  if (client) {
+    try {
+      let tableName = "life4billion_store";
+      const check = await client.from("life4billion_store").select("key").limit(1);
+      if (check.error) {
+        const fallbackCheck = await client.from("omnisaas_store").select("key").limit(1);
+        if (!fallbackCheck.error) {
+          tableName = "omnisaas_store";
+        }
+      }
+
+      // Check user preferences store
+      const { data } = await client
+        .from(tableName)
+        .select("value")
+        .eq("user_id", userId)
+        .eq("key", `mcp_permissions_${userId}`)
+        .maybeSingle();
+
+      if (data?.value) {
+        return normalizePermissions(data.value);
+      }
+    } catch (err) {
+      console.warn("[MCP Get Permissions Warning]:", err);
+    }
+  }
+
+  return { ...DEFAULT_MCP_PERMISSIONS };
+}
+
+/**
+ * Updates MCP permissions for a user
+ */
+export async function updateMcpPermissions(
+  userId: string,
+  permissions: Partial<McpPermissions>,
+  apiKey?: string,
+  reqHeaders?: Record<string, any>
+): Promise<{ success: boolean; permissions: McpPermissions; error?: string }> {
+  if (!userId) {
+    return { success: false, permissions: { ...DEFAULT_MCP_PERMISSIONS }, error: "User ID is required" };
+  }
+
+  const normalized = normalizePermissions(permissions);
+
+  // Update in-memory
+  for (const [k, val] of IN_MEMORY_MCP_KEYS.entries()) {
+    if (val.userId === userId && (!apiKey || k === apiKey)) {
+      val.permissions = normalized;
+    }
+  }
+
+  // Update in Supabase
+  const config = getSupabaseCredentials(reqHeaders);
+  const client = createSupabaseClient(config);
+  if (client) {
+    try {
+      let tableName = "life4billion_store";
+      const check = await client.from("life4billion_store").select("key").limit(1);
+      if (check.error) {
+        const fallbackCheck = await client.from("omnisaas_store").select("key").limit(1);
+        if (!fallbackCheck.error) {
+          tableName = "omnisaas_store";
+        }
+      }
+
+      await client
+        .from(tableName)
+        .upsert({
+          key: `mcp_permissions_${userId}`,
+          value: normalized,
+          user_id: userId,
+          updated_at: new Date().toISOString()
+        }, { onConflict: "key" });
+
+      if (apiKey) {
+        const { data: row } = await client
+          .from(tableName)
+          .select("value")
+          .eq("key", `mcp_api_key_${apiKey}`)
+          .eq("user_id", userId)
+          .maybeSingle();
+
+        if (row?.value) {
+          await client
+            .from(tableName)
+            .update({
+              value: { ...row.value, permissions: normalized },
+              updated_at: new Date().toISOString()
+            })
+            .eq("key", `mcp_api_key_${apiKey}`)
+            .eq("user_id", userId);
+        }
+      }
+    } catch (err: any) {
+      console.warn("[MCP Update Permissions Warning]:", err.message || err);
+    }
+  }
+
+  return { success: true, permissions: normalized };
 }

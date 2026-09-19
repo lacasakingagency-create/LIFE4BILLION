@@ -22,6 +22,7 @@ import {
   Radio
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { McpIntegrationSettings } from './McpIntegrationSettings';
 
 interface McpServerModalProps {
   isOpen: boolean;
@@ -37,7 +38,7 @@ export const McpServerModal: React.FC<McpServerModalProps> = ({
   onShowNotification
 }) => {
   const { user, session } = useAuth();
-  const [activeTab, setActiveTab] = useState<'quickstart' | 'claude' | 'chatgpt' | 'tools' | 'keys'>('quickstart');
+  const [activeTab, setActiveTab] = useState<'integrations' | 'quickstart' | 'claude' | 'chatgpt' | 'tools' | 'keys'>('integrations');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [mcpInfo, setMcpInfo] = useState<any>(null);
   const [loadingInfo, setLoadingInfo] = useState<boolean>(false);
@@ -256,10 +257,11 @@ export const McpServerModal: React.FC<McpServerModalProps> = ({
         {/* Navigation Tabs */}
         <div className="flex border-b border-white/10 bg-slate-950/60 px-6 shrink-0 space-x-2 overflow-x-auto">
           {[
+            { id: 'integrations', label: isPt ? 'Integrações (MCP)' : 'Integrations (MCP)', icon: Server },
             { id: 'quickstart', label: isPt ? 'Início Rápido' : 'Quickstart', icon: Zap },
             { id: 'claude', label: 'Claude Connector', icon: Bot },
             { id: 'chatgpt', label: 'ChatGPT MCP App', icon: Sparkles },
-            { id: 'tools', label: isPt ? 'Ferramentas (23)' : 'Tools (23)', icon: Terminal },
+            { id: 'tools', label: isPt ? 'Ferramentas (24)' : 'Tools (24)', icon: Terminal },
             { id: 'keys', label: isPt ? 'Chaves de Acesso' : 'API Keys', icon: Key }
           ].map((tab) => {
             const Icon = tab.icon;
@@ -268,7 +270,7 @@ export const McpServerModal: React.FC<McpServerModalProps> = ({
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`py-3 px-3.5 text-xs font-semibold flex items-center space-x-2 border-b-2 transition whitespace-nowrap ${
+                className={`py-3 px-3.5 text-xs font-semibold flex items-center space-x-2 border-b-2 transition whitespace-nowrap cursor-pointer ${
                   isActive
                     ? 'border-emerald-400 text-emerald-400 bg-emerald-500/5'
                     : 'border-transparent text-slate-400 hover:text-white hover:border-slate-700'
@@ -283,6 +285,15 @@ export const McpServerModal: React.FC<McpServerModalProps> = ({
 
         {/* Modal Body */}
         <div className="p-6 space-y-6 overflow-y-auto flex-1 text-xs">
+          {/* TAB 0: OFFICIAL INTEGRATIONS (MCP) */}
+          {activeTab === 'integrations' && (
+            <McpIntegrationSettings
+              language={language}
+              onShowNotification={onShowNotification}
+              onClose={onClose}
+            />
+          )}
+
           {/* TAB 1: QUICKSTART */}
           {activeTab === 'quickstart' && (
             <div className="space-y-5">

@@ -6,6 +6,7 @@
 
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { AuthenticatedUser } from "./types";
+import { McpPermissions } from "./permissions";
 
 interface SupabaseConfig {
   url: string;
@@ -40,7 +41,9 @@ export function createSupabaseClient(config: SupabaseConfig, token?: string): Su
     }
   };
 
-  if (token) {
+  const isUserJwt = Boolean(token && !token.startsWith("l4b_mcp_"));
+
+  if (isUserJwt) {
     options.global = {
       headers: {
         Authorization: `Bearer ${token}`
@@ -48,8 +51,10 @@ export function createSupabaseClient(config: SupabaseConfig, token?: string): Su
     };
   }
 
+  const keyToUse = (!isUserJwt && config.serviceRoleKey) ? config.serviceRoleKey : config.anonKey;
+
   try {
-    return createClient(config.url, config.anonKey, options);
+    return createClient(config.url, keyToUse, options);
   } catch (err) {
     console.error("[MCP Supabase Client Init Error]:", err);
     return null;
@@ -152,8 +157,17 @@ export async function authenticateMcpRequest(
   }
 }
 
+export interface InMemoryMcpKeyData {
+  userId: string;
+  email?: string;
+  role?: string;
+  createdAt: string;
+  permissions?: McpPermissions;
+  status?: "active" | "revoked";
+}
+
 // In-memory MCP key cache for high resilience and instant local validation
-export const IN_MEMORY_MCP_KEYS = new Map<string, { userId: string; email?: string; role?: string; createdAt: string }>();
+export const IN_MEMORY_MCP_KEYS = new Map<string, InMemoryMcpKeyData>();
 
 /**
  * Verifies a Personal MCP Key stored in life4billion_store or in-memory cache
@@ -162,11 +176,17 @@ async function verifyPersonalMcpKey(key: string, config: SupabaseConfig): Promis
   // 1. Check in-memory cache first
   const memoryKey = IN_MEMORY_MCP_KEYS.get(key);
   if (memoryKey) {
+    if (memoryKey.status === "revoked") {
+      return null;
+    }
     return {
       userId: memoryKey.userId,
       email: memoryKey.email,
       role: memoryKey.role || "user",
-      authMethod: "l4b_mcp_key"
+      authMethod: "l4b_mcp_key",
+      permissions: memoryKey.permissions,
+      apiKey: key,
+      status: memoryKey.status || "active"
     };
   }
 
@@ -200,11 +220,18 @@ async function verifyPersonalMcpKey(key: string, config: SupabaseConfig): Promis
     }
 
     if (data && data.user_id) {
+      const status = data.value?.status || "active";
+      if (status === "revoked") {
+        return null;
+      }
       return {
         userId: data.user_id,
         email: data.value?.email,
         role: data.value?.role || "user",
-        authMethod: "l4b_mcp_key"
+        authMethod: "l4b_mcp_key",
+        permissions: data.value?.permissions,
+        apiKey: key,
+        status
       };
     }
   } catch (err) {

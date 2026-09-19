@@ -13,7 +13,17 @@ import { createClient } from "@supabase/supabase-js";
 import Stripe from "stripe";
 import { AdminStore } from "./src/lib/admin/adminStore";
 import { EBook } from "./src/types/schema";
-import { handleMcpPost, handleMcpSse, handleMcpMessages, handleMcpInfo, generatePersonalMcpKey, setMcpCorsHeaders } from "./src/server/mcp/server";
+import {
+  handleMcpPost,
+  handleMcpSse,
+  handleMcpMessages,
+  handleMcpInfo,
+  generatePersonalMcpKey,
+  revokePersonalMcpKey,
+  getMcpPermissions,
+  updateMcpPermissions,
+  setMcpCorsHeaders
+} from "./src/server/mcp/server";
 import { IN_MEMORY_MCP_KEYS } from "./src/server/mcp/auth";
 
 dotenv.config();
@@ -2183,14 +2193,16 @@ app.get("/api/mcp/keys", async (req, res) => {
       }
     }
 
-    const keysMap = new Map<string, { key: string; created_at: string; label: string }>();
+    const keysMap = new Map<string, { key: string; created_at: string; label: string; status: "active" | "revoked"; permissions?: any }>();
 
     for (const row of (data || [])) {
       const k = row.value?.apiKey || row.key.replace("mcp_api_key_", "");
       keysMap.set(k, {
         key: k,
         created_at: row.value?.created_at || row.updated_at,
-        label: row.value?.label || "MCP API Key"
+        label: row.value?.label || "MCP API Key",
+        status: row.value?.status || "active",
+        permissions: row.value?.permissions
       });
     }
 
@@ -2199,7 +2211,9 @@ app.get("/api/mcp/keys", async (req, res) => {
         keysMap.set(k, {
           key: k,
           created_at: val.createdAt,
-          label: "Claude & ChatGPT MCP Key"
+          label: "Claude & ChatGPT MCP Key",
+          status: val.status || "active",
+          permissions: val.permissions
         });
       }
     }
@@ -2209,6 +2223,109 @@ app.get("/api/mcp/keys", async (req, res) => {
   } catch (err: any) {
     return res.status(500).json({ success: false, error: err.message });
   }
+});
+
+// User-Facing Endpoint: Revoke MCP Connection
+app.post("/api/mcp/keys/revoke", async (req, res) => {
+  setMcpCorsHeaders(res);
+  const authHeader = req.headers["authorization"] || "";
+  let token = "";
+  if (authHeader.startsWith("Bearer ")) {
+    token = authHeader.substring(7).trim();
+  }
+
+  const { client } = getSupabaseClient(req);
+  let userId = "";
+  if (client && token) {
+    try {
+      const { data } = await client.auth.getUser(token);
+      if (data?.user?.id) {
+        userId = data.user.id;
+      }
+    } catch {}
+  }
+
+  if (!userId && req.body?.userId) {
+    userId = String(req.body.userId).trim();
+  }
+
+  if (!userId) {
+    return res.status(401).json({ success: false, error: "Authentication required to revoke MCP connection" });
+  }
+
+  const apiKey = req.body?.apiKey ? String(req.body.apiKey).trim() : undefined;
+  const result = await revokePersonalMcpKey(userId, apiKey, req.headers);
+  return res.json({ success: result.success, message: "Conexão MCP revogada com sucesso.", revokedCount: result.revokedCount });
+});
+
+// User-Facing Endpoint: Get MCP Permissions
+app.get("/api/mcp/permissions", async (req, res) => {
+  setMcpCorsHeaders(res);
+  const authHeader = req.headers["authorization"] || "";
+  let token = "";
+  if (authHeader.startsWith("Bearer ")) {
+    token = authHeader.substring(7).trim();
+  }
+
+  const { client } = getSupabaseClient(req);
+  let userId = "";
+  if (client && token) {
+    try {
+      const { data } = await client.auth.getUser(token);
+      if (data?.user?.id) {
+        userId = data.user.id;
+      }
+    } catch {}
+  }
+
+  if (!userId && req.query?.userId) {
+    userId = String(req.query.userId).trim();
+  }
+
+  if (!userId) {
+    return res.status(401).json({ success: false, error: "Authentication required" });
+  }
+
+  const apiKey = req.query?.apiKey ? String(req.query.apiKey).trim() : undefined;
+  const permissions = await getMcpPermissions(userId, apiKey, req.headers);
+  return res.json({ success: true, permissions });
+});
+
+// User-Facing Endpoint: Update MCP Permissions
+app.post("/api/mcp/permissions", async (req, res) => {
+  setMcpCorsHeaders(res);
+  const authHeader = req.headers["authorization"] || "";
+  let token = "";
+  if (authHeader.startsWith("Bearer ")) {
+    token = authHeader.substring(7).trim();
+  }
+
+  const { client } = getSupabaseClient(req);
+  let userId = "";
+  if (client && token) {
+    try {
+      const { data } = await client.auth.getUser(token);
+      if (data?.user?.id) {
+        userId = data.user.id;
+      }
+    } catch {}
+  }
+
+  if (!userId && req.body?.userId) {
+    userId = String(req.body.userId).trim();
+  }
+
+  if (!userId) {
+    return res.status(401).json({ success: false, error: "Authentication required" });
+  }
+
+  const { permissions, apiKey } = req.body;
+  if (!permissions || typeof permissions !== "object") {
+    return res.status(400).json({ success: false, error: "Permissions object required" });
+  }
+
+  const result = await updateMcpPermissions(userId, permissions, apiKey, req.headers);
+  return res.json({ success: true, permissions: result.permissions });
 });
 
 async function startServer() {
