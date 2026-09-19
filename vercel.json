@@ -1,7 +1,39 @@
 {
   "rewrites": [
     {
-      "source": "/((?!api/).*)",
+      "source": "/.well-known/:match*",
+      "destination": "https://ais-dev-5cdbrz5swznlxfdx7xvzky-970771255884.europe-west2.run.app/.well-known/:match*"
+    },
+    {
+      "source": "/oauth/:match*",
+      "destination": "https://ais-dev-5cdbrz5swznlxfdx7xvzky-970771255884.europe-west2.run.app/oauth/:match*"
+    },
+    {
+      "source": "/api/mcp/keys",
+      "destination": "https://ais-dev-5cdbrz5swznlxfdx7xvzky-970771255884.europe-west2.run.app/api/mcp/keys"
+    },
+    {
+      "source": "/api/mcp/keys/:match*",
+      "destination": "https://ais-dev-5cdbrz5swznlxfdx7xvzky-970771255884.europe-west2.run.app/api/mcp/keys/:match*"
+    },
+    {
+      "source": "/api/mcp/permissions",
+      "destination": "https://ais-dev-5cdbrz5swznlxfdx7xvzky-970771255884.europe-west2.run.app/api/mcp/permissions"
+    },
+    {
+      "source": "/api/mcp/permissions/:match*",
+      "destination": "https://ais-dev-5cdbrz5swznlxfdx7xvzky-970771255884.europe-west2.run.app/api/mcp/permissions/:match*"
+    },
+    {
+      "source": "/api/mcp/messages",
+      "destination": "https://ais-dev-5cdbrz5swznlxfdx7xvzky-970771255884.europe-west2.run.app/api/mcp/messages"
+    },
+    {
+      "source": "/api/mcp/messages/:match*",
+      "destination": "https://ais-dev-5cdbrz5swznlxfdx7xvzky-970771255884.europe-west2.run.app/api/mcp/messages/:match*"
+    },
+    {
+      "source": "/((?!api/|oauth/|\\.well-known/).*)",
       "destination": "/index.html"
     }
   ]
