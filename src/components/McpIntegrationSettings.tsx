@@ -48,7 +48,7 @@ export const McpIntegrationSettings: React.FC<McpIntegrationSettingsProps> = ({
   const [showRevokeModal, setShowRevokeModal] = useState<boolean>(false);
 
   // Instructions subtab
-  const [aiClientTab, setAiClientTab] = useState<'claude' | 'chatgpt'>('claude');
+  const [aiClientTab, setAiClientTab] = useState<'claude_web' | 'claude_desktop' | 'chatgpt'>('claude_web');
 
   // Permissions state
   const [permissions, setPermissions] = useState<McpPermissions>(DEFAULT_MCP_PERMISSIONS);
@@ -580,73 +580,104 @@ export const McpIntegrationSettings: React.FC<McpIntegrationSettingsProps> = ({
             </p>
           </div>
 
-          <div className="flex items-center p-1 bg-black/40 rounded-xl border border-white/5">
+          <div className="flex flex-wrap items-center p-1 bg-black/40 rounded-xl border border-white/5 gap-1">
             <button
               type="button"
-              onClick={() => setAiClientTab('claude')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
-                aiClientTab === 'claude'
+              onClick={() => setAiClientTab('claude_web')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center space-x-1.5 ${
+                aiClientTab === 'claude_web'
+                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              <span>Claude Web (OAuth 2.1)</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setAiClientTab('claude_desktop')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center space-x-1.5 ${
+                aiClientTab === 'claude_desktop'
                   ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              Claude (Anthropic)
+              <span>Claude Desktop</span>
             </button>
             <button
               type="button"
               onClick={() => setAiClientTab('chatgpt')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center space-x-1.5 ${
                 aiClientTab === 'chatgpt'
                   ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              ChatGPT (OpenAI)
+              <span>ChatGPT (OpenAI)</span>
             </button>
           </div>
         </div>
 
-        {/* 5 Core Steps Checklist */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-2 text-xs py-1">
-          <div className="bg-black/30 p-3 rounded-xl border border-white/5 space-y-1">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-[10px]">
-              1
-            </span>
-            <p className="font-semibold text-slate-200 mt-1">Copie a URL</p>
-            <p className="text-[11px] text-slate-400 leading-snug">Copie o MCP Server URL exibido acima.</p>
-          </div>
-          <div className="bg-black/30 p-3 rounded-xl border border-white/5 space-y-1">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-[10px]">
-              2
-            </span>
-            <p className="font-semibold text-slate-200 mt-1">Copie a Chave</p>
-            <p className="text-[11px] text-slate-400 leading-snug">Copie sua chave exclusiva l4b_mcp_*.</p>
-          </div>
-          <div className="bg-black/30 p-3 rounded-xl border border-white/5 space-y-1">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-[10px]">
-              3
-            </span>
-            <p className="font-semibold text-slate-200 mt-1">Configure na IA</p>
-            <p className="text-[11px] text-slate-400 leading-snug">Adicione no Claude Desktop ou GPT Custom Actions.</p>
-          </div>
-          <div className="bg-black/30 p-3 rounded-xl border border-white/5 space-y-1">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-[10px]">
-              4
-            </span>
-            <p className="font-semibold text-slate-200 mt-1">Autorize Conexão</p>
-            <p className="text-[11px] text-slate-400 leading-snug">Habilite as ferramentas nas permissões abaixo.</p>
-          </div>
-          <div className="bg-black/30 p-3 rounded-xl border border-white/5 space-y-1">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-[10px]">
-              5
-            </span>
-            <p className="font-semibold text-slate-200 mt-1">Pronto para Uso</p>
-            <p className="text-[11px] text-slate-400 leading-snug">Pergunte à sua IA sobre seus dados financeiros.</p>
-          </div>
-        </div>
-
         {/* AI Client Specific Guidance */}
-        {aiClientTab === 'claude' ? (
+        {aiClientTab === 'claude_web' && (
+          <div className="space-y-4 pt-1">
+            <div className="bg-gradient-to-r from-amber-500/10 via-slate-900 to-slate-950 p-4 sm:p-5 rounded-xl border border-amber-500/30 space-y-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="space-y-1">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
+                      Conexão Direta Sem Chaves
+                    </span>
+                    <span className="text-xs text-slate-400">RFC 8414 / RFC 7591</span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white">Conectar Claude Web (OAuth 2.1)</h4>
+                  <p className="text-xs text-slate-300 leading-relaxed max-w-2xl">
+                    O Claude Web conecta-se ao Life4Billion automaticamente usando o padrão <strong>OAuth 2.1 com PKCE</strong>. Você <strong>não precisa copiar manualmente uma chave l4b_mcp_*</strong>: a autenticação e o consentimento são negociados pelo navegador com isolamento rígido por usuário.
+                  </p>
+                </div>
+              </div>
+
+              {/* Steps for Claude Web */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+                <div className="bg-black/50 p-3 rounded-lg border border-white/5 space-y-1">
+                  <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-[10px]">1</span>
+                  <p className="font-semibold text-xs text-slate-200">Adicione o Conector</p>
+                  <p className="text-[11px] text-slate-400">No Claude Web (claude.ai), acesse as configurações de conectores ou ferramentas personalizadas.</p>
+                </div>
+                <div className="bg-black/50 p-3 rounded-lg border border-white/5 space-y-1">
+                  <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-[10px]">2</span>
+                  <p className="font-semibold text-xs text-slate-200">Cole a URL do Servidor</p>
+                  <p className="text-[11px] text-slate-400">Informe a URL: <code className="text-amber-300 font-mono text-[10px]">{mcpServerUrl}</code>. O Claude fará a descoberta OAuth automaticamente.</p>
+                </div>
+                <div className="bg-black/50 p-3 rounded-lg border border-white/5 space-y-1">
+                  <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-[10px]">3</span>
+                  <p className="font-semibold text-xs text-slate-200">Autorize o Acesso</p>
+                  <p className="text-[11px] text-slate-400">Uma janela de consentimento será aberta para você confirmar quais ferramentas e dados deseja liberar.</p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-white/10">
+                <div className="flex items-center space-x-2 text-xs text-slate-400">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Endpoints descobertos automaticamente em <code className="text-slate-300">/.well-known/oauth-authorization-server</code></span>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(mcpServerUrl, 'URL para Claude Web')}
+                    className="px-3 py-1.5 bg-amber-500 hover:bg-amber-450 text-slate-950 rounded-lg text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-md shadow-amber-500/10"
+                  >
+                    {copiedField === 'URL para Claude Web' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>Copiar URL do Conector</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {aiClientTab === 'claude_desktop' && (
           <div className="space-y-3 pt-2">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-slate-300">
@@ -687,7 +718,9 @@ export const McpIntegrationSettings: React.FC<McpIntegrationSettingsProps> = ({
               . Reinicie o Claude Desktop após salvar.
             </p>
           </div>
-        ) : (
+        )}
+
+        {aiClientTab === 'chatgpt' && (
           <div className="space-y-3 pt-2">
             <div className="bg-slate-950 p-4 rounded-xl border border-white/10 space-y-2 text-xs">
               <p className="font-bold text-white">Configurando no ChatGPT (Custom GPT ou Custom MCP Connector):</p>

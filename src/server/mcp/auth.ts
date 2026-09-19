@@ -7,6 +7,7 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { AuthenticatedUser } from "./types";
 import { McpPermissions } from "./permissions";
+import { verifyOAuthAccessToken } from "./oauth";
 
 interface SupabaseConfig {
   url: string;
@@ -118,7 +119,19 @@ export async function authenticateMcpRequest(
     };
   }
 
-  // 3. Case B: Verify Supabase Auth JWT directly via auth.getUser(token)
+  // 3. Case B: Check if token is an OAuth 2.1 Access Token (e.g. l4b_oauth_...)
+  if (rawToken.startsWith("l4b_oauth_")) {
+    const oauthUser = await verifyOAuthAccessToken(rawToken, headers);
+    if (oauthUser) {
+      return { user: oauthUser };
+    }
+    return {
+      user: null,
+      error: "Invalid or expired OAuth 2.1 access token."
+    };
+  }
+
+  // 4. Case C: Verify Supabase Auth JWT directly via auth.getUser(token)
   try {
     const client = createClient(config.url, config.anonKey, {
       auth: { persistSession: false, autoRefreshToken: false }
@@ -127,7 +140,13 @@ export async function authenticateMcpRequest(
     const { data, error } = await client.auth.getUser(rawToken);
 
     if (error || !data?.user?.id) {
-      // Fallback: check if the token might be an MCP Key that didn't have the prefix
+      // Fallback 1: check if token is an OAuth token without standard prefix
+      const oauthFallback = await verifyOAuthAccessToken(rawToken, headers);
+      if (oauthFallback) {
+        return { user: oauthFallback };
+      }
+
+      // Fallback 2: check if the token might be an MCP Key that didn't have the prefix
       const keyUser = await verifyPersonalMcpKey(rawToken, config);
       if (keyUser) {
         return { user: keyUser };

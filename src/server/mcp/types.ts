@@ -62,7 +62,7 @@ export interface AuthenticatedUser {
   userId: string;
   email?: string;
   role?: string;
-  authMethod: "supabase_jwt" | "l4b_mcp_key";
+  authMethod: "supabase_jwt" | "l4b_mcp_key" | "oauth2";
   permissions?: McpPermissions;
   apiKey?: string;
   status?: "active" | "revoked";

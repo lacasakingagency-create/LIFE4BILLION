@@ -25,6 +25,17 @@ import {
   setMcpCorsHeaders
 } from "./src/server/mcp/server";
 import { IN_MEMORY_MCP_KEYS } from "./src/server/mcp/auth";
+import {
+  handleOAuthAuthorizationServerDiscovery,
+  handleOpenIdConfiguration,
+  handleOAuthProtectedResourceDiscovery,
+  handleWellKnownFallback,
+  handleOAuthRegister,
+  handleOAuthAuthorize,
+  handleOAuthConsent,
+  handleOAuthToken,
+  handleOAuthRevoke
+} from "./src/server/mcp/oauth";
 
 dotenv.config();
 
@@ -35,6 +46,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Initialize Gemini SDK with telemetry header as required by guidelines
 let ai: GoogleGenAI | null = null;
@@ -2079,6 +2091,37 @@ app.post("/api/admin/assign-role", async (req, res) => {
 });
 
 // -------------------------------------------------------------
+// OAUTH 2.1 & WELL-KNOWN MCP DISCOVERY ROUTES (CLAUDE WEB)
+// MUST be registered BEFORE SPA fallback and return pure JSON/HTML
+// -------------------------------------------------------------
+
+// 1. OAuth & Protected Resource Discovery (RFC 8414 & RFC 9728)
+app.get("/.well-known/oauth-authorization-server", handleOAuthAuthorizationServerDiscovery);
+app.get("/.well-known/openid-configuration", handleOpenIdConfiguration);
+app.get("/.well-known/oauth-protected-resource", handleOAuthProtectedResourceDiscovery);
+app.get("/.well-known/mcp", handleMcpInfo);
+
+// Strict JSON 404 fallback for unhandled .well-known routes (Never return HTML)
+app.all("/.well-known/*", handleWellKnownFallback);
+
+// 2. Dynamic Client Registration (RFC 7591)
+app.post("/oauth/register", handleOAuthRegister);
+
+// 3. Authorization Code & Consent (RFC 7636 / PKCE)
+app.get("/oauth/authorize", handleOAuthAuthorize);
+app.post("/oauth/authorize/consent", handleOAuthConsent);
+
+// 4. Token & Revocation Endpoints
+app.post("/oauth/token", handleOAuthToken);
+app.post("/oauth/revoke", handleOAuthRevoke);
+
+// Strict JSON 404 fallback for unhandled /oauth/* routes
+app.all("/oauth/*", (req, res) => {
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  return res.status(404).json({ error: "not_found", error_description: `OAuth endpoint not found: ${req.path}` });
+});
+
+// -------------------------------------------------------------
 // REMOTE MODEL CONTEXT PROTOCOL (MCP) SERVER ENDPOINTS
 // Compatible with Claude Custom Connector and ChatGPT Custom MCP App
 // -------------------------------------------------------------
@@ -2103,7 +2146,6 @@ app.post("/api/mcp/messages", handleMcpMessages);
 
 // Discovery & Info endpoints
 app.get("/api/mcp/info", handleMcpInfo);
-app.get("/.well-known/mcp", handleMcpInfo);
 
 // User-Facing Endpoint: Generate Personal MCP Key for Claude/ChatGPT
 app.post("/api/mcp/keys/generate", async (req, res) => {

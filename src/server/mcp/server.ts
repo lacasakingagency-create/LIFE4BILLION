@@ -63,6 +63,21 @@ export async function handleMcpPost(req: Request | any, res: Response | any) {
   // Authenticate the request
   const { user, error: authError } = await authenticateMcpRequest(req.headers || {}, req.query || {});
 
+  if (!user) {
+    res.setHeader(
+      "WWW-Authenticate",
+      `Bearer error="invalid_token", error_description="${authError || "Authentication required"}"`
+    );
+    return res.status(401).json({
+      jsonrpc: "2.0",
+      id: Array.isArray(body) ? (body[0]?.id ?? null) : (body?.id ?? null),
+      error: {
+        code: -32000,
+        message: authError || "Unauthorized: Valid Supabase authentication, OAuth 2.1 token, or Life4Billion MCP API Key required."
+      }
+    });
+  }
+
   // Handle batch requests vs single request
   if (Array.isArray(body)) {
     const responses = [];
@@ -95,6 +110,19 @@ export async function handleMcpSse(req: Request | any, res: Response | any) {
   const acceptHeader = (req.headers["accept"] || "").toLowerCase();
   if (!acceptHeader.includes("text/event-stream")) {
     return handleMcpInfo(req, res);
+  }
+
+  // Authenticate SSE connection
+  const { user, error: authError } = await authenticateMcpRequest(req.headers || {}, req.query || {});
+  if (!user) {
+    res.setHeader(
+      "WWW-Authenticate",
+      `Bearer error="invalid_token", error_description="${authError || "Authentication required"}"`
+    );
+    return res.status(401).json({
+      error: "unauthorized",
+      error_description: authError || "Unauthorized: Valid Bearer token required to establish MCP SSE stream."
+    });
   }
 
   const sessionId = "sess_" + Math.random().toString(36).substring(2, 15) + "_" + Date.now().toString(36);
@@ -146,6 +174,21 @@ export async function handleMcpMessages(req: Request | any, res: Response | any)
   const session = sessionId ? activeSessions.get(sessionId) : null;
 
   const { user, error: authError } = await authenticateMcpRequest(req.headers || {}, req.query || {});
+  if (!user) {
+    res.setHeader(
+      "WWW-Authenticate",
+      `Bearer error="invalid_token", error_description="${authError || "Authentication required"}"`
+    );
+    return res.status(401).json({
+      jsonrpc: "2.0",
+      id: req.body?.id ?? null,
+      error: {
+        code: -32000,
+        message: authError || "Unauthorized: Valid Bearer token required for MCP messages."
+      }
+    });
+  }
+
   const body = req.body;
 
   if (!body) {
